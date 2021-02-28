@@ -12,7 +12,7 @@ import retrofit2.http.Path
 
 class NetworkService {
 
-    interface fetchMovieDetail {
+    interface FetchMovieDetail {
 
         @GET("movie/{movie_id}?api_key={api_key}&language=en-US")
         suspend fun get(
@@ -21,7 +21,7 @@ class NetworkService {
         ): Response<Detail>
     }
 
-    interface fetchMovieCast {
+    interface FetchMovieCast {
 
         @GET("movie/{movie_id}/credits?api_key={api_key}&language=en-US")
         suspend fun get(
@@ -30,7 +30,7 @@ class NetworkService {
         ): Response<Cast_and_Crew>
     }
 
-    interface fetchVideos {
+    interface FetchVideos {
 
         @GET("movie/{movie_id}/videos?api_key={api_key}&language=en-US")
         suspend fun get(
@@ -39,7 +39,7 @@ class NetworkService {
         ): Response<Video>
     }
 
-    interface fetchKeywords {
+    interface FetchKeywords {
 
         @GET("movie/{movie_id}/keywords?api_key={api_key}")
         suspend fun get(
@@ -48,7 +48,7 @@ class NetworkService {
         ): Response<Keyword_List>
     }
 
-    interface fetchSimilarMovie {
+    interface FetchSimilarMovie {
 
         @GET("movie/{movie_id}/similar?api_key={api_key}&language=en-US&page={page}")
         suspend fun get(
@@ -58,7 +58,7 @@ class NetworkService {
         ): Response<Movie_list>
     }
 
-    interface fetchRecommendationMovie {
+    interface FetchRecommendationMovie {
 
         @GET("movie/{movie_id}/recommendations?api_key={api_key}&language=en-US&page={page}")
         suspend fun get(
@@ -68,7 +68,7 @@ class NetworkService {
         ): Response<Movie_list>
     }
 
-    interface fetchMovieByKeyword {
+    interface FetchMovieByKeyword {
 
         @GET("keyword/{keyword_id}/movies?api_key={api_key}&language=en-US&include_adult=false")
         suspend fun get(
@@ -77,7 +77,7 @@ class NetworkService {
         ): Response<Movie_list>
     }
 
-    interface fetchSearchMovie {
+    interface FetchSearchMovie {
 
         @GET("search/movie?api_key={api_key}&language=en-US&query={query}&page={page}&include_adult=false")
         suspend fun get(
@@ -87,7 +87,7 @@ class NetworkService {
         ): Response<Movie_list>
     }
 
-    interface fetchNowPlayingMovie {
+    interface FetchNowPlayingMovie {
 
         @GET("movie/now_playing?api_key={api_key}&language=en-US&page={page}")
         suspend fun get(
@@ -96,7 +96,7 @@ class NetworkService {
         ): Response<Movie_list>
     }
 
-    interface fetchPopularMovie {
+    interface FetchPopularMovie {
 
         @GET("movie/popular?api_key={api_key}&language=en-US&page={page}")
         suspend fun get(
@@ -105,7 +105,7 @@ class NetworkService {
         ): Response<Movie_list>
     }
 
-    interface fetchTopRatedMovie {
+    interface FetchTopRatedMovie {
 
         @GET("movie/top_rated?api_key={api_key}&language=en-US&page={page}")
         suspend fun get(
