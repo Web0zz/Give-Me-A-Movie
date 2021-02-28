@@ -14,74 +14,66 @@ class NetworkService {
 
     interface FetchMovieDetail {
 
-        @GET("movie/{movie_id}?api_key={api_key}&language=en-US")
+        @GET("movie/{movie_id}?language=en-US")
         suspend fun get(
-            @Path("movie_id") movie_id: Int,
-            @Path("api_key") API_KEY: String = BuildConfig.API_KEY
+            @Path("movie_id") movie_id: Int
         ): Response<Detail>
     }
 
     interface FetchMovieCast {
 
-        @GET("movie/{movie_id}/credits?api_key={api_key}&language=en-US")
+        @GET("movie/{movie_id}/credits?language=en-US")
         suspend fun get(
-            @Path("movie_id") movie_id: Int,
-            @Path("api_key") API_KEY: String = BuildConfig.API_KEY
+            @Path("movie_id") movie_id: Int
         ): Response<Cast_and_Crew>
     }
 
     interface FetchVideos {
 
-        @GET("movie/{movie_id}/videos?api_key={api_key}&language=en-US")
+        @GET("movie/{movie_id}/videos?language=en-US")
         suspend fun get(
-            @Path("movie_id") movie_id: Int,
-            @Path("api_key") API_KEY: String = BuildConfig.API_KEY
+            @Path("movie_id") movie_id: Int
         ): Response<Video>
     }
 
     interface FetchKeywords {
 
-        @GET("movie/{movie_id}/keywords?api_key={api_key}")
+        @GET("movie/{movie_id}/keywords?")
         suspend fun get(
-            @Path("movie_id") movie_id: Int,
-            @Path("api_key") API_KEY: String = BuildConfig.API_KEY
+            @Path("movie_id") movie_id: Int
         ): Response<Keyword_List>
     }
 
     interface FetchSimilarMovie {
 
-        @GET("movie/{movie_id}/similar?api_key={api_key}&language=en-US&page={page}")
+        @GET("movie/{movie_id}/similar?language=en-US&page={page}")
         suspend fun get(
             @Path("movie_id") movie_id: Int,
-            @Path("api_key") API_KEY: String = BuildConfig.API_KEY,
             @Path("page") page: Int = 1
         ): Response<Movie_list>
     }
 
     interface FetchRecommendationMovie {
 
-        @GET("movie/{movie_id}/recommendations?api_key={api_key}&language=en-US&page={page}")
+        @GET("movie/{movie_id}/recommendations?language=en-US&page={page}")
         suspend fun get(
             @Path("movie_id") movie_id: Int,
-            @Path("api_key") API_KEY: String = BuildConfig.API_KEY,
             @Path("page") page: Int = 1
         ): Response<Movie_list>
     }
 
     interface FetchMovieByKeyword {
 
-        @GET("keyword/{keyword_id}/movies?api_key={api_key}&language=en-US&include_adult=false")
+        @GET("keyword/{keyword_id}/movies?language=en-US&include_adult=false")
         suspend fun get(
             @Path("keyword_id") keyword_id: Int,
-            @Path("api_key") API_KEY: String = BuildConfig.API_KEY
         ): Response<Movie_list>
     }
 
     interface FetchSearchMovie {
 
-        @GET("search/movie?api_key={api_key}&language=en-US&query={query}&page={page}&include_adult=false")
+        @GET("search/movie?language=en-US&query={query}&page={page}&include_adult=false")
         suspend fun get(
-            @Path("api_key") API_KEY: String = BuildConfig.API_KEY,
             @Path("query") query: String,
             @Path("page") page: Int = 1
         ): Response<Movie_list>
@@ -89,27 +81,24 @@ class NetworkService {
 
     interface FetchNowPlayingMovie {
 
-        @GET("movie/now_playing?api_key={api_key}&language=en-US&page={page}")
+        @GET("movie/now_playing?language=en-US&page={page}")
         suspend fun get(
-            @Path("api_key") API_KEY: String = BuildConfig.API_KEY,
             @Path("page") page: Int = 1
         ): Response<Movie_list>
     }
 
     interface FetchPopularMovie {
 
-        @GET("movie/popular?api_key={api_key}&language=en-US&page={page}")
+        @GET("movie/popular?language=en-US&page={page}")
         suspend fun get(
-            @Path("api_key") API_KEY: String = BuildConfig.API_KEY,
             @Path("page") page: Int = 1
         ): Response<Movie_list>
     }
 
     interface FetchTopRatedMovie {
 
-        @GET("movie/top_rated?api_key={api_key}&language=en-US&page={page}")
+        @GET("movie/top_rated?language=en-US&page={page}")
         suspend fun get(
-            @Path("api_key") API_KEY: String = BuildConfig.API_KEY,
             @Path("page") page: Int = 1
         ): Response<Movie_list>
     }
