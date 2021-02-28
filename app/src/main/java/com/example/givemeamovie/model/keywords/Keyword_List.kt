@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class Keywords(
+data class Keyword_List(
     @field:Json(name = "id") val id: Int,
     @field:Json(name = "keywords") val keywords: List<Keyword>
 )
