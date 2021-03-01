@@ -1,11 +1,11 @@
 package com.example.givemeamovie.data.remote
 
 import com.example.givemeamovie.BuildConfig
-import com.example.givemeamovie.model.credits.Cast_and_Crew
-import com.example.givemeamovie.model.keywords.Keyword_List
-import com.example.givemeamovie.model.movie_detail.Detail
-import com.example.givemeamovie.model.movie_detail.Video
-import com.example.givemeamovie.model.movie_lists.Movie_list
+import com.example.givemeamovie.model.network.credits.Cast_and_Crew
+import com.example.givemeamovie.model.network.keywords.Keyword_List
+import com.example.givemeamovie.model.network.movie_detail.Detail
+import com.example.givemeamovie.model.network.movie_detail.Video
+import com.example.givemeamovie.model.network.movie_lists.Movie_list
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
