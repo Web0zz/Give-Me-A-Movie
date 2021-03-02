@@ -7,5 +7,5 @@ import com.example.givemeamovie.model.entity.MovieLibrary
 @Dao
 interface LibraryDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addNewMovieLibrary(library: MovieLibrary)
+    fun addNewMovieLibrary(library: MovieLibrary)
 }

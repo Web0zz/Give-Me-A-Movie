@@ -11,6 +11,7 @@ internal class NetworkInterceptor: Interceptor {
         val url = originalUrl.newBuilder()
             .addQueryParameter("api_key", BuildConfig.API_KEY)
             .build()
+
         val requestBuilder = originalRequest.newBuilder().url(url)
         val request = requestBuilder.build()
         return chain.proceed(request)

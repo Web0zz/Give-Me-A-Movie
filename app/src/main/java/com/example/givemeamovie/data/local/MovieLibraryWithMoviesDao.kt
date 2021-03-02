@@ -8,10 +8,10 @@ import com.example.givemeamovie.model.entity.MovieLibraryCrossRef
 interface MovieLibraryWithMoviesDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(movie_library: MovieLibraryCrossRef)
+    fun insert(movie_Ref: MovieLibraryCrossRef)
 
     @Delete
-    fun deleteMovie(movie: Movie)
+    fun deleteMovie(movie_Ref: MovieLibraryCrossRef)
 
     @Transaction
     @Query("SELECT * FROM movielibrarycrossref WHERE library_Name LIKE :library_name")

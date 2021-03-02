@@ -62,14 +62,6 @@ class NetworkService {
         ): Response<Movie_list>
     }
 
-    interface FetchMovieByKeyword {
-
-        @GET("keyword/{keyword_id}/movies?language=en-US&include_adult=false")
-        suspend fun get(
-            @Path("keyword_id") keyword_id: Int,
-        ): Response<Movie_list>
-    }
-
     interface FetchSearchMovie {
 
         @GET("search/movie?language=en-US&query={query}&page={page}&include_adult=false")
