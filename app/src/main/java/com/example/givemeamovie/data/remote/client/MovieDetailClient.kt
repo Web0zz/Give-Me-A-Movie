@@ -8,7 +8,7 @@ import com.example.givemeamovie.model.network.keywords.Keyword_List
 import com.example.givemeamovie.model.network.movie_detail.Detail
 import com.example.givemeamovie.model.network.movie_detail.Video
 
-class NetworkClient (private val service: MovieDetailService){
+class MovieDetailClient (private val service: MovieDetailService){
 
     fun fetchMovieDetail(
             movie_id: Int,
