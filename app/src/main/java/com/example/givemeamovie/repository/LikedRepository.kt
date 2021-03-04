@@ -1,4 +1,4 @@
 package com.example.givemeamovie.repository
 
-class LikedRepository {
+class LikedRepository: Repository {
 }

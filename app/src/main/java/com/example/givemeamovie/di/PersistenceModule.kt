@@ -10,12 +10,13 @@ import com.example.givemeamovie.data.local.MovieLibraryWithMoviesDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Singleton
 
 @Module
-@InstallIn(BaseApplication::class)
-class PersistenceModule {
+@InstallIn(SingletonComponent::class)
+object PersistenceModule {
 
     @Singleton
     @Provides
