@@ -9,7 +9,7 @@ import com.example.givemeamovie.model.network.movie_detail.Video
 import javax.inject.Inject
 
 class DetailRepository @Inject constructor(
-    private val movieDetailService: MovieDetailService
+    private val movieDetailService: MovieDetailService,
 ): Repository {
 
     suspend fun fetchMovieDetail(

@@ -2,7 +2,6 @@ package com.example.givemeamovie.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.givemeamovie.BaseApplication
 import com.example.givemeamovie.data.local.AppDatabase
 import com.example.givemeamovie.data.local.LibraryDao
 import com.example.givemeamovie.data.local.MovieDao
@@ -45,4 +44,5 @@ object PersistenceModule {
     fun provideMovieLibraryWithMoviesDao(appDatabase: AppDatabase): MovieLibraryWithMoviesDao {
         return appDatabase.movieLibraryWithMoviesDao()
     }
+
 }

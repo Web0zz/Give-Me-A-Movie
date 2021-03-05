@@ -8,4 +8,7 @@ import com.example.givemeamovie.model.entity.MovieLibrary
 interface LibraryDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addNewMovieLibrary(library: MovieLibrary)
+
+    @Query("SELECT * FROM movielibrary")
+    fun getAvailableLibraries(): List<MovieLibrary>
 }
