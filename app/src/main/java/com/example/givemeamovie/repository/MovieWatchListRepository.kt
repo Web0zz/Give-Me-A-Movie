@@ -29,4 +29,12 @@ class MovieWatchListRepository  @Inject constructor(
     fun getAvailabeleLibraries(): List<MovieLibrary> {
         return movieLibraryDao.getAvailableLibraries()
     }
+
+    fun deleteMovie(movie: Movie) {
+        movieDao.deleteMovie(movie)
+    }
+
+    fun deleteMovieFromLibrary(movie: Movie, library_name: String) {
+        movieLibraryWithMoviesDao.deleteMovie(MovieLibraryCrossRef(library_name, movie.movie_id))
+    }
 }
