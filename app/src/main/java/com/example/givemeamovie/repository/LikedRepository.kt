@@ -1,5 +1,6 @@
 package com.example.givemeamovie.repository
 
+import androidx.annotation.WorkerThread
 import com.example.givemeamovie.data.local.LibraryDao
 import com.example.givemeamovie.data.local.MovieDao
 import com.example.givemeamovie.data.local.MovieLibraryWithMoviesDao
@@ -24,6 +25,7 @@ class LikedRepository @Inject constructor(
         return movieLibraryWithMoviesDao.getMovies(libraryName)
     }
 
+    @WorkerThread
     fun getMoviesInLibrary(
             libraryName: String,
             onError: (String?) -> Unit
@@ -39,6 +41,7 @@ class LikedRepository @Inject constructor(
         }
     }.flowOn(Dispatchers.IO)
 
+    @WorkerThread
     fun getAvailableLibraries() = flow {
         val movie_Libraries = movieLibraryDao.getAvailableLibraries()
         emit(movie_Libraries)

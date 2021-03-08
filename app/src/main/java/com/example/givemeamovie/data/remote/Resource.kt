@@ -10,16 +10,16 @@ sealed class Resource<T>(val data: T?, val message: String?) {
 
     companion object {
         suspend fun <T> toResource(f: suspend () -> Response<T>) : Resource<T>  {
-            try {
+            return try {
                 val response = f()
                 val result = response.body()
                 if (response.isSuccessful && result != null) {
-                    return Resource.Success(result)
+                    Resource.Success(result)
                 } else {
-                    return Resource.Error(response.message())
+                    Resource.Error(response.message())
                 }
             } catch (ex: Exception) {
-                return Resource.Error(ex.message ?: "An error occured")
+                Resource.Error(ex.message ?: "An error occured")
             }
         }
     }

@@ -22,8 +22,8 @@ class MovieWatchListRepository  @Inject constructor(
         emit(movieLibraries)
     }.flowOn(Dispatchers.IO)
 
-    suspend fun insertNewLibrary(library_name: String) {
-        movieLibraryDao.addNewMovieLibrary(MovieLibrary(library_name))
+    suspend fun insertNewLibrary(library_name: String, first_movie: Movie) {
+        movieLibraryDao.addNewMovieLibrary(MovieLibrary(library_name, 1,first_movie.backdrop_path))
     }
 
     suspend fun insertMovie(movie: Movie) {
@@ -32,6 +32,7 @@ class MovieWatchListRepository  @Inject constructor(
 
     suspend fun insertMovieToLibrary(movie: Movie, library_name: String) {
         movieLibraryWithMoviesDao.insert(MovieLibraryCrossRef(library_name, movie.movie_id))
+        movieLibraryDao.updateLibrarySize(1,library_name)
     }
 
     suspend fun deleteMovie(movie: Movie) {
@@ -40,5 +41,6 @@ class MovieWatchListRepository  @Inject constructor(
 
     suspend fun deleteMovieFromLibrary(movie: Movie, library_name: String) {
         movieLibraryWithMoviesDao.deleteMovie(MovieLibraryCrossRef(library_name, movie.movie_id))
+        movieLibraryDao.updateLibrarySize(-1,library_name)
     }
 }
