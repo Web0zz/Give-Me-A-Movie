@@ -1,9 +1,6 @@
 package com.example.givemeamovie.view.ui.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.givemeamovie.data.remote.Resource
 import com.example.givemeamovie.model.network.movie_lists.Movie_list
 import com.example.givemeamovie.repository.HomeRepository
@@ -17,27 +14,36 @@ class HomeViewModel @Inject constructor(
         private val homeRepository: HomeRepository
 ): ViewModel() {
 
-    private val _searchMovieList = MutableLiveData<Resource<Movie_list>>()
+    private lateinit var _searchMovieList: LiveData<Resource<Movie_list>>
     val searchMovieList: LiveData<Resource<Movie_list>> = _searchMovieList
 
-    private val _movieList = MutableLiveData<List<Resource<Movie_list>>>()
-    val movieList: LiveData<List<Resource<Movie_list>>> = _movieList
+    lateinit var nowPlayingMovie:LiveData<Resource<Movie_list>>
+    lateinit var popularMovie:LiveData<Resource<Movie_list>>
+    lateinit var topRatedMovie:LiveData<Resource<Movie_list>>
+
 
     fun searchMovie(query: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            _searchMovieList.postValue(homeRepository.fetchSearchMovie(query))
+            _searchMovieList = homeRepository.fetchSearchMovie(query).asLiveData()
         }
     }
 
-    fun fetchMovies() {
+    fun fetchNowPlayingMovie(page: Int = 1) {
         viewModelScope.launch(Dispatchers.IO) {
-            _movieList.postValue(
-                    listOf(
-                            homeRepository.fetchNowPlayingMovie(),
-                            homeRepository.fetchPopularMovies(),
-                            homeRepository.fetchTopRatedMovies()
-                    )
-            )
+            nowPlayingMovie = homeRepository.fetchNowPlayingMovie(page).asLiveData()
         }
     }
+
+    fun fetchPopularMovie(page: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            popularMovie = homeRepository.fetchPopularMovies(page).asLiveData()
+        }
+    }
+
+    fun fetchTopRatedMovie(page: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+           topRatedMovie = homeRepository.fetchTopRatedMovies(page).asLiveData()
+        }
+    }
+
 }

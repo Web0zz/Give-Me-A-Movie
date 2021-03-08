@@ -26,7 +26,7 @@ class WatchListViewModel @Inject constructor(
 
     fun getAvailableLibraries(){
         viewModelScope.launch(Dispatchers.IO) {
-            _availableLists = movieWatchListRepository.getAvailabeleLibraries().asLiveData()
+            _availableLists = movieWatchListRepository.getAvailableLibraries().asLiveData()
         }
     }
 

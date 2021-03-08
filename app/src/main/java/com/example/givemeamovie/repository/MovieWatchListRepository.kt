@@ -17,7 +17,7 @@ class MovieWatchListRepository  @Inject constructor(
         private val movieDao: MovieDao
 ): Repository {
 
-    fun getAvailabeleLibraries() = flow {
+    fun getAvailableLibraries() = flow {
         val movieLibraries = movieLibraryDao.getAvailableLibraries()
         emit(movieLibraries)
     }.flowOn(Dispatchers.IO)
