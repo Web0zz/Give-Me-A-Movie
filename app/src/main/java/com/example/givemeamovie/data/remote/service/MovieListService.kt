@@ -7,11 +7,6 @@ import retrofit2.http.Path
 
 interface MovieListService {
 
-    @GET("movie/{movie_id}/similar?language=en-US&page={page}")
-    suspend fun fetchSimilarMovie(
-            @Path("movie_id") movie_id: Int,
-            @Path("page") page: Int
-    ): Response<Movie_list>
 
     @GET("movie/{movie_id}/recommendations?language=en-US&page={page}")
     suspend fun fetchRecommendationMovie(
