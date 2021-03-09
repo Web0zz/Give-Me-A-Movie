@@ -5,7 +5,7 @@ import com.example.givemeamovie.model.entity.Movie
 
 @Dao
 interface MovieDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insertMovieList(movies: List<Movie>)
 
     @Delete

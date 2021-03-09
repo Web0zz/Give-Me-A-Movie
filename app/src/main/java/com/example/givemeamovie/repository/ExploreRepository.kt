@@ -1,13 +1,17 @@
 package com.example.givemeamovie.repository
 
+import com.example.givemeamovie.data.local.LikedMovieRecommendationDao
 import com.example.givemeamovie.data.local.MovieDao
 import com.example.givemeamovie.data.local.MovieLibraryWithMoviesDao
 import com.example.givemeamovie.data.remote.Resource
 import com.example.givemeamovie.data.remote.service.MovieListService
 import com.example.givemeamovie.model.entity.Movie
 import com.example.givemeamovie.model.entity.MovieLibraryCrossRef
+import com.example.givemeamovie.model.entity.RecommendMovie
 import com.example.givemeamovie.model.network.movie_lists.Movie_list
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -16,6 +20,7 @@ class ExploreRepository @Inject constructor(
         private val movieListService: MovieListService,
         private val movieDao: MovieDao,
         private val croffRefDao: MovieLibraryWithMoviesDao,
+        private val likedMovieRecommendationDao: LikedMovieRecommendationDao
 ): Repository {
 
     companion object {
@@ -23,6 +28,17 @@ class ExploreRepository @Inject constructor(
     }
 
     private var temporaryList = mutableListOf<Resource<Movie_list>>()
+
+    suspend fun addMovieToRecommendation(recommendMovie: RecommendMovie) {
+        likedMovieRecommendationDao.addMovieForRecommendation(recommendMovie)
+    }
+
+    suspend fun pullMovieToRecommendation(): RecommendMovie {
+        val movie = likedMovieRecommendationDao.takeMovieToRecommend()
+        likedMovieRecommendationDao.deleteMovie(movie)
+        return movie
+    }
+
 
     // Get Movies in Liked database
     private suspend fun moviesInLikedCross(
@@ -66,7 +82,7 @@ class ExploreRepository @Inject constructor(
     *   if everything is go wrong it will execute error function
     * */
     suspend fun getMovies(
-            onLikedMovieList: (List<Movie>) -> Unit,
+            onLikedMovieList: (MutableList<Movie>) -> Unit,
             onServiceCalled: (Resource<Movie_list>) -> Unit,
             onMainError: (String?) -> Unit
     ) = withContext(Dispatchers.IO) {

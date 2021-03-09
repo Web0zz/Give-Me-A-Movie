@@ -7,7 +7,7 @@ import com.example.givemeamovie.model.entity.MovieLibraryCrossRef
 @Dao
 interface MovieLibraryWithMoviesDao {
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insert(movie_Ref: MovieLibraryCrossRef)
 
     @Delete

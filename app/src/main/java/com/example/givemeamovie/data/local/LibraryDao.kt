@@ -6,7 +6,7 @@ import com.example.givemeamovie.model.entity.MovieLibrary
 
 @Dao
 interface LibraryDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun addNewMovieLibrary(library: MovieLibrary)
 
     @Query("SELECT * FROM movielibrary")
