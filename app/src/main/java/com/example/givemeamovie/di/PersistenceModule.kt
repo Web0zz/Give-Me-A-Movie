@@ -2,10 +2,7 @@ package com.example.givemeamovie.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.givemeamovie.data.local.AppDatabase
-import com.example.givemeamovie.data.local.LibraryDao
-import com.example.givemeamovie.data.local.MovieDao
-import com.example.givemeamovie.data.local.MovieLibraryWithMoviesDao
+import com.example.givemeamovie.data.local.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -43,6 +40,12 @@ object PersistenceModule {
     @Provides
     fun provideMovieLibraryWithMoviesDao(appDatabase: AppDatabase): MovieLibraryWithMoviesDao {
         return appDatabase.movieLibraryWithMoviesDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideLikedMovieRecommendationDao(appDatabase: AppDatabase): LikedMovieRecommendationDao {
+        return appDatabase.likedMovieRecommendationDao()
     }
 
 }

@@ -6,9 +6,12 @@ import com.example.givemeamovie.model.entity.MovieLibrary
 
 @Dao
 interface LibraryDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addNewMovieLibrary(library: MovieLibrary)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
+    suspend fun addNewMovieLibrary(library: MovieLibrary)
 
     @Query("SELECT * FROM movielibrary")
-    fun getAvailableLibraries(): List<MovieLibrary>
+    suspend fun getAvailableLibraries(): List<MovieLibrary>
+
+    @Query("UPDATE movielibrary SET library_size = library_size + :number WHERE library_Name = :_library_name")
+    suspend fun updateLibrarySize(number: Int, _library_name: String)
 }

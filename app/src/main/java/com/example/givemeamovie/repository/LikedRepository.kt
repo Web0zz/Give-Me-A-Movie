@@ -1,11 +1,14 @@
 package com.example.givemeamovie.repository
 
+import androidx.annotation.WorkerThread
 import com.example.givemeamovie.data.local.LibraryDao
 import com.example.givemeamovie.data.local.MovieDao
 import com.example.givemeamovie.data.local.MovieLibraryWithMoviesDao
 import com.example.givemeamovie.model.entity.Movie
-import com.example.givemeamovie.model.entity.MovieLibrary
 import com.example.givemeamovie.model.entity.MovieLibraryCrossRef
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class LikedRepository @Inject constructor(
@@ -14,23 +17,33 @@ class LikedRepository @Inject constructor(
         private val movieDao: MovieDao
 ): Repository {
 
-    private fun getMovie(movie_id: Int): Movie {
+    private suspend fun getMovie(movie_id: Int): Movie {
         return movieDao.getMovie(movie_id)
     }
 
-    private fun getMoviesRefFromLibrary(libraryName: String): List<MovieLibraryCrossRef> {
+    private suspend fun getMoviesRefFromLibrary(libraryName: String): List<MovieLibraryCrossRef>  {
         return movieLibraryWithMoviesDao.getMovies(libraryName)
     }
 
-    fun getMoviesInLibrary(libraryName: String) : List<Movie> {
-        val movies = mutableListOf<Movie>()
-        getMoviesRefFromLibrary(libraryName).map {
-           movies.add(getMovie(it.movie_id))
+    @WorkerThread
+    fun getMoviesInLibrary(
+            libraryName: String,
+            onError: (String?) -> Unit
+    ) = flow {
+        try {
+            val movies = mutableListOf<Movie>()
+            getMoviesRefFromLibrary(libraryName).map {
+                movies.add(getMovie(it.movie_id))
+            }
+            emit(movies)
+        } catch (ex: Throwable) {
+            onError(ex.localizedMessage)
         }
-        return movies
-    }
+    }.flowOn(Dispatchers.IO)
 
-    fun getAvailableLibraries(): List<MovieLibrary> {
-        return movieLibraryDao.getAvailableLibraries()
-    }
+    @WorkerThread
+    fun getAvailableLibraries() = flow {
+        val movie_Libraries = movieLibraryDao.getAvailableLibraries()
+        emit(movie_Libraries)
+    }.flowOn(Dispatchers.IO)
 }
