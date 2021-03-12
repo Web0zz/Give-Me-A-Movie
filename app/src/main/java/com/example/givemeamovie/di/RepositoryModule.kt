@@ -1,6 +1,7 @@
 package com.example.givemeamovie.di
 
 import com.example.givemeamovie.data.local.LibraryDao
+import com.example.givemeamovie.data.local.LikedMovieRecommendationDao
 import com.example.givemeamovie.data.local.MovieDao
 import com.example.givemeamovie.data.local.MovieLibraryWithMoviesDao
 import com.example.givemeamovie.data.remote.service.MovieDetailService
@@ -18,8 +19,11 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideDetailRepository(movieDetailService: MovieDetailService): Repository {
-        return DetailRepository(movieDetailService)
+    fun provideDetailRepository(
+            movieDetailService: MovieDetailService,
+            movieLibraryWithMoviesDao: MovieLibraryWithMoviesDao
+    ): Repository {
+        return DetailRepository(movieDetailService,movieLibraryWithMoviesDao)
     }
 
     @Singleton
@@ -27,9 +31,10 @@ object RepositoryModule {
     fun provideExploreRepository(
             movieListService: MovieListService,
             movieDao: MovieDao,
-            croffRefDao: MovieLibraryWithMoviesDao
+            croffRefDao: MovieLibraryWithMoviesDao,
+            likedMovieRecommendationDao: LikedMovieRecommendationDao
     ): Repository {
-        return ExploreRepository(movieListService, movieDao, croffRefDao)
+        return ExploreRepository(movieListService, movieDao, croffRefDao, likedMovieRecommendationDao)
     }
 
     @Singleton
@@ -40,12 +45,12 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideLikedRepository(
+    fun provideFavoriteRepository(
             movieLibraryWithMoviesDao: MovieLibraryWithMoviesDao,
             movieLibraryDao: LibraryDao,
             movieDao: MovieDao
     ): Repository {
-        return LikedRepository(movieLibraryWithMoviesDao, movieLibraryDao, movieDao)
+        return FavoriteRepository(movieLibraryWithMoviesDao, movieLibraryDao, movieDao)
     }
 
     @Singleton

@@ -9,17 +9,13 @@ import com.example.givemeamovie.model.network.movie_detail.Detail
 import com.example.givemeamovie.model.network.movie_detail.Video
 import com.example.givemeamovie.model.network.movie_lists.Movie_list
 import com.example.givemeamovie.repository.DetailRepository
-import com.example.givemeamovie.repository.LikedRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(
-        private val detailRepository: DetailRepository,
-        private val likedRepository: LikedRepository
+        private val detailRepository: DetailRepository
 ): ViewModel() {
 
     private var _movieDetail = MutableLiveData<Detail>()

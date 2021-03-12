@@ -12,6 +12,6 @@ interface LibraryDao {
     @Query("SELECT * FROM movielibrary")
     suspend fun getAvailableLibraries(): List<MovieLibrary>
 
-    @Query("UPDATE movielibrary SET library_size = library_size + :number WHERE library_Name = :_library_name")
-    suspend fun updateLibrarySize(number: Int, _library_name: String)
+    @Query("UPDATE movielibrary SET library_size = library_size + :number WHERE library_Name = :movieLibraryName")
+    suspend fun updateLibrarySize(number: Int, movieLibraryName: String)
 }

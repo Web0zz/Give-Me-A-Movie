@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
-class LikedRepository @Inject constructor(
+class FavoriteRepository @Inject constructor(
         private val movieLibraryWithMoviesDao: MovieLibraryWithMoviesDao,
         private val movieLibraryDao: LibraryDao,
         private val movieDao: MovieDao
@@ -40,7 +40,6 @@ class LikedRepository @Inject constructor(
         }
     }.flowOn(Dispatchers.IO)
 
-    @WorkerThread
     fun getAvailableLibraries() = flow {
         val movie_Libraries = movieLibraryDao.getAvailableLibraries()
         emit(movie_Libraries)

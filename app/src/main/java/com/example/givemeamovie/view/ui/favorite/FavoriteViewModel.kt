@@ -1,23 +1,22 @@
-package com.example.givemeamovie.view.ui.liked
+package com.example.givemeamovie.view.ui.favorite
 
 import androidx.lifecycle.*
 import com.example.givemeamovie.model.entity.Movie
 import com.example.givemeamovie.model.entity.MovieLibrary
-import com.example.givemeamovie.repository.LikedRepository
+import com.example.givemeamovie.repository.FavoriteRepository
 import com.example.givemeamovie.repository.MovieWatchListRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LikedViewModel @Inject constructor(
-    private val likedRepository: LikedRepository,
-    private val movieWatchListRepository: MovieWatchListRepository
+class FavoriteViewModel @Inject constructor(
+        private val likedRepository: FavoriteRepository,
+        private val movieWatchListRepository: MovieWatchListRepository
 ): ViewModel() {
 
     private lateinit var _movieLibraries: LiveData<List<MovieLibrary>>
