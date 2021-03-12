@@ -25,7 +25,6 @@ class LikedRepository @Inject constructor(
         return movieLibraryWithMoviesDao.getMovies(libraryName)
     }
 
-    @WorkerThread
     fun getMoviesInLibrary(
             libraryName: String,
             onError: (String?) -> Unit
