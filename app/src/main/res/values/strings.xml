@@ -5,4 +5,15 @@
     <string name="home">Home</string>
     <string name="explore">Explore</string>
     <string name="favorite">Favorite</string>
+    <string name="detail_shape">detail_shape</string>
+    <string name="similar">SIMILAR</string>
+    <string name="cast">CAST</string>
+    <string name="when_the_crew_of_a_space_junk_collector_ship_called_the_victory_discovers_a_humanoid_robot_named_dorothy_that_s_known_to_be_a_weapon_of_mass_destruction_they_get_involved_in_a_risky_business_deal_which_puts_their_lives_at_stake">When the crew of a space junk collector ship called The Victory discovers a humanoid robot named Dorothy that\'s known to be a weapon of mass destruction, they get involved in a risky business deal which puts their lives at stake.</string>
+    <string name="overview">OVERVIEW</string>
+    <string name="space1">|</string>
+    <string name="_2017">2017</string>
+    <string name="fear_of_rain">Fear of Rain</string>
+    <string name="_120_min">120 min</string>
+    <string name="space2">|</string>
+    <string name="action_adventure_fantasy">Action, Adventure, Fantasy</string>
 </resources>
