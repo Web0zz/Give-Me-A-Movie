@@ -14,7 +14,7 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.example.givemeamovie"
+        applicationId "com.web0zz.givemeamovie"
         minSdkVersion 23
         targetSdkVersion 30
         versionCode 1

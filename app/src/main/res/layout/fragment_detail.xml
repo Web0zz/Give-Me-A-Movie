@@ -7,11 +7,11 @@
     <data>
         <variable
             name="vm"
-            type="com.example.givemeamovie.view.ui.detail.DetailViewModel" />
+            type="com.web0zz.givemeamovie.view.ui.detail.DetailViewModel" />
 
-        <!--<variable
+        <variable
             name="adapter"
-            type="" />-->
+            type="com.web0zz.givemeamovie.view.adapter.CastListAdapter" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -215,6 +215,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/cast_recyclerView"
+                    adapterCastList="@{vm.movieCast.component1()}"
                     android:layout_width="match_parent"
                     android:layout_height="105dp"
                     android:layout_marginStart="20dp"
