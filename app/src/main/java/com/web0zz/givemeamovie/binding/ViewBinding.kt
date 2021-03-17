@@ -28,12 +28,6 @@ object ViewBinding {
     }
 
     @JvmStatic
-    @BindingAdapter("Overview")
-    fun bindOverview(view: TextView, movie: Detail) {
-        view.text = movie.overview
-    }
-
-    @JvmStatic
     @BindingAdapter("ReleaseDate")
     fun bindReleaseDate(view: TextView, movie: Detail) {
         view.text = movie.release_date.subSequence(0,4)
