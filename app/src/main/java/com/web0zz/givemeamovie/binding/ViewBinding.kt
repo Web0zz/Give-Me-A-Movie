@@ -1,12 +1,16 @@
 package com.web0zz.givemeamovie.binding
 
 import android.annotation.SuppressLint
+import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.web0zz.givemeamovie.model.entity.Movie
+import com.web0zz.givemeamovie.model.entity.MovieLibraryCrossRef
 import com.web0zz.givemeamovie.model.network.movie_detail.Detail
+import com.web0zz.givemeamovie.view.ui.detail.DetailViewModel
 
 object ViewBinding {
 
@@ -27,10 +31,11 @@ object ViewBinding {
             .into(view)
     }
 
+    @SuppressLint("SetTextI18n")
     @JvmStatic
-    @BindingAdapter("ReleaseDate")
-    fun bindReleaseDate(view: TextView, movie: Detail) {
-        view.text = movie.release_date.subSequence(0,4)
+    @BindingAdapter("MovieTitle")
+    fun bindingMovieTitle(view: TextView, movie: Detail) {
+        view.text = "${movie.original_title} (${movie.release_date.subSequence(0,4)})"
     }
 
     @JvmStatic

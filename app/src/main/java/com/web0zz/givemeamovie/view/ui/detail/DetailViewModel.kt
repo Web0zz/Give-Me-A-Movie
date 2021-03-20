@@ -2,6 +2,7 @@ package com.web0zz.givemeamovie.view.ui.detail
 
 import androidx.lifecycle.*
 import com.web0zz.givemeamovie.data.remote.Resource
+import com.web0zz.givemeamovie.model.entity.Movie
 import com.web0zz.givemeamovie.model.entity.MovieLibraryCrossRef
 import com.web0zz.givemeamovie.model.network.credits.Cast_and_Crew
 import com.web0zz.givemeamovie.model.network.keywords.Keyword_List
@@ -36,15 +37,15 @@ class DetailViewModel @Inject constructor(
     private var _askMovieInLibrary = MutableLiveData<Boolean>()
     val askMovieInLibrary: LiveData<Boolean> = _askMovieInLibrary
 
-    fun addToLibrary(crossRef: MovieLibraryCrossRef) {
+    fun addToLibrary(crossRef: MovieLibraryCrossRef, movie: Movie) {
         viewModelScope.launch {
-            detailRepository.addToLibrary(crossRef)
+            detailRepository.addToLibrary(crossRef, movie)
         }
     }
 
-    fun deleteFromLibrary(crossRef: MovieLibraryCrossRef) {
+    fun deleteFromLibrary(crossRef: MovieLibraryCrossRef, movie: Movie) {
         viewModelScope.launch {
-            detailRepository.deleteFromLibrary(crossRef)
+            detailRepository.deleteFromLibrary(crossRef, movie)
         }
     }
 

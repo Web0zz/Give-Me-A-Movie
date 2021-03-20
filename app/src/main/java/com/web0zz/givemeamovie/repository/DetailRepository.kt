@@ -1,8 +1,10 @@
 package com.web0zz.givemeamovie.repository
 
+import com.web0zz.givemeamovie.data.local.MovieDao
 import com.web0zz.givemeamovie.data.local.MovieLibraryWithMoviesDao
 import com.web0zz.givemeamovie.data.remote.Resource
 import com.web0zz.givemeamovie.data.remote.service.MovieDetailService
+import com.web0zz.givemeamovie.model.entity.Movie
 import com.web0zz.givemeamovie.model.entity.MovieLibraryCrossRef
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
@@ -11,14 +13,17 @@ import javax.inject.Inject
 
 class DetailRepository @Inject constructor(
         private val movieDetailService: MovieDetailService,
-        private val movieLibraryWithMoviesDao: MovieLibraryWithMoviesDao
+        private val movieLibraryWithMoviesDao: MovieLibraryWithMoviesDao,
+        private val movieDao: MovieDao
 ): Repository {
 
-    suspend fun addToLibrary(crossRef: MovieLibraryCrossRef) {
+    suspend fun addToLibrary(crossRef: MovieLibraryCrossRef, movie: Movie) {
         movieLibraryWithMoviesDao.insert(crossRef)
+        movieDao.insertMovieList(listOf(movie))
     }
-    suspend fun deleteFromLibrary(crossRef: MovieLibraryCrossRef) {
+    suspend fun deleteFromLibrary(crossRef: MovieLibraryCrossRef, movie: Movie) {
         movieLibraryWithMoviesDao.deleteMovie(crossRef)
+        movieDao.deleteMovie(movie)
     }
     suspend fun checkIsThere(crossRef: MovieLibraryCrossRef): Boolean {
         return movieLibraryWithMoviesDao.checkIsThere(crossRef.movie_id, crossRef.library_Name)

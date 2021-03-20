@@ -10,5 +10,8 @@
     <string name="cast">CAST</string>
     <string name="overview">OVERVIEW</string>
     <string name="space1">|</string>
-    <string name="space2">|</string>
+    <string name="watch_trailer">Watch Trailer</string>
+    <string name="add_to_watchlist">Watchlist</string>
+    <string name="like">LIKE</string>
+    <string name="like_button">like_button</string>
 </resources>
