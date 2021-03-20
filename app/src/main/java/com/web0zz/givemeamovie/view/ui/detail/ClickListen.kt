@@ -1,5 +1,7 @@
 package com.web0zz.givemeamovie.view.ui.detail
 
+import android.content.Intent
+import android.net.Uri
 import android.widget.Button
 import androidx.databinding.BindingAdapter
 import com.web0zz.givemeamovie.model.entity.Movie

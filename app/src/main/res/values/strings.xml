@@ -14,4 +14,5 @@
     <string name="add_to_watchlist">Watchlist</string>
     <string name="like">LIKE</string>
     <string name="like_button">like_button</string>
+    <string name="search">Search</string>
 </resources>
