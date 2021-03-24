@@ -15,7 +15,7 @@ class MovieListAdapter(private val items: List<Movie>) : RecyclerView.Adapter<Mo
         return MoviesViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: MovieListAdapter.MoviesViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MoviesViewHolder, position: Int) {
         with(holder.binding) {
             movie = items[position]
             executePendingBindings()
