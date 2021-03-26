@@ -24,23 +24,15 @@ class FavoriteRepository @Inject constructor(
         return movieLibraryWithMoviesDao.getMovies(libraryName)
     }
 
-    fun getMoviesInLibrary(
-            libraryName: String,
-            onError: (String?) -> Unit
-    ) = flow {
-        try {
-            val movies = mutableListOf<Movie>()
-            getMoviesRefFromLibrary(libraryName).map {
-                movies.add(getMovie(it.movie_id))
-            }
-            emit(movies)
-        } catch (ex: Throwable) {
-            onError(ex.localizedMessage)
+    suspend fun getMoviesInLibrary(
+            libraryName: String
+    ) : List<Movie> {
+        val movies = mutableListOf<Movie>()
+        getMoviesRefFromLibrary(libraryName).map {
+            movies.add(getMovie(it.movie_id))
         }
-    }.flowOn(Dispatchers.IO)
+        return movies
+    }
 
-    fun getAvailableLibraries() = flow {
-        val movie_Libraries = movieLibraryDao.getAvailableLibraries()
-        emit(movie_Libraries)
-    }.flowOn(Dispatchers.IO)
+    suspend fun getAvailableLibraries() = movieLibraryDao.getAvailableLibraries()
 }

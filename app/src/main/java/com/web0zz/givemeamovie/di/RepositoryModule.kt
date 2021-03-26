@@ -21,9 +21,10 @@ object RepositoryModule {
     @Provides
     fun provideDetailRepository(
             movieDetailService: MovieDetailService,
-            movieLibraryWithMoviesDao: MovieLibraryWithMoviesDao
+            movieLibraryWithMoviesDao: MovieLibraryWithMoviesDao,
+            movieDao: MovieDao
     ): Repository {
-        return DetailRepository(movieDetailService,movieLibraryWithMoviesDao)
+        return DetailRepository(movieDetailService,movieLibraryWithMoviesDao,movieDao)
     }
 
     @Singleton

@@ -1,4 +1,4 @@
-package com.web0zz.givemeamovie.view.ui.watchlist
+package com.web0zz.givemeamovie.view.ui.home
 
 import androidx.lifecycle.*
 import com.web0zz.givemeamovie.model.entity.Movie
@@ -20,6 +20,11 @@ class WatchListViewModel @Inject constructor(
     private lateinit var _availableLists: LiveData<List<MovieLibrary>>
     val availableLists: LiveData<List<MovieLibrary>> = _availableLists
 
+    init {
+        getAvailableLibraries()
+    }
+
+
     fun setSelectedMovie(movie: Movie) {
         _selectedMovie.postValue(movie)
     }
@@ -30,7 +35,7 @@ class WatchListViewModel @Inject constructor(
         }
     }
 
-    fun insetMovieToNewLibrary(library_name: String) {
+    fun insertMovieToNewLibrary(library_name: String) {
         viewModelScope.launch(Dispatchers.IO) {
             movieWatchListRepository.insertNewLibrary(library_name,_selectedMovie.value!!)
             movieWatchListRepository.insertMovie(_selectedMovie.value!!)
@@ -51,7 +56,7 @@ class WatchListViewModel @Inject constructor(
         }
     }
 
-    fun deleteMovie() {
+    fun deleteMovieFromLib() {
         viewModelScope.launch(Dispatchers.IO) {
             movieWatchListRepository.deleteMovie(_selectedMovie.value!!)
         }

@@ -1,6 +1,5 @@
 package com.web0zz.givemeamovie.view.ui.explore
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,6 +11,7 @@ import com.web0zz.givemeamovie.repository.ExploreRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,22 +19,54 @@ class ExploreViewModel @Inject constructor(
         private val exploreRepository: ExploreRepository
 ): ViewModel() {
 
-    private val _recommendedMovie = MutableLiveData<Movie_list>()
-    val recommendedMovie: LiveData<Movie_list> = _recommendedMovie
+    var movieIndex: Int = 0
+    lateinit var currentMovie: MutableLiveData<Movie>
+    lateinit var currentMovieList: MutableLiveData<List<Movie>>
 
     private var _likedMovies: MutableList<Movie> = mutableListOf()
     private var _fetchedMovies: Movie_list = Movie_list(-1, emptyList(),0,0)
 
-    // When movie liked or watched it will added to library
-    fun addMovieYourLibrary(movie: Movie, library_name: String) {
+
+    init {
+        fetchNewMovieToRecommendService {
+            Timber.d("error in fetch movie to recommend database error: $it")
+        }
+        recommendedMovieListToView {
+            Timber.d("error in fetch movie to recommend variable error: $it")
+        }
+        currentMovie.postValue( currentMovieList.value!![movieIndex] )
+    }
+
+    fun getNewMovieForUi(isLiked: Boolean) {
+        if (isLiked) { addMovieYourLibrary(currentMovie.value!!) }
+        if (movieIndex == currentMovieList.value!!.size) {
+            recommendedMovieListToView {
+                fetchNewMovieToRecommendService {
+                    Timber.d("error in fetch movie to recommend database error: $it")
+                }
+                recommendedMovieListToView {
+                    Timber.d("error in fetch movie to recommend variable error: $it")
+                }
+            }
+            movieIndex = 0
+        } else {
+            movieIndex++
+        }
+        currentMovie.postValue(currentMovieList.value!![movieIndex])
+    }
+
+
+
+    // When movie liked it will added to library
+    private fun addMovieYourLibrary(movie: Movie) {
         viewModelScope.launch(Dispatchers.IO) {
-            exploreRepository.addMovieToDatabase(movie, library_name)
+            exploreRepository.addMovieToDatabase(movie, "LIKED")
         }
     }
 
 
-    /// Main functions will called from UI
-    fun fetchNewMovieToRecommendService(
+    /// Main functions
+    private fun fetchNewMovieToRecommendService(
             onError: (String?) -> Unit
     ) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -43,7 +75,7 @@ class ExploreViewModel @Inject constructor(
         }
     }
 
-    fun RecommendedMovieListToView(
+    private fun recommendedMovieListToView(
             onError: (String?) -> Unit
     ) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -60,7 +92,7 @@ class ExploreViewModel @Inject constructor(
     ) {
         when(val list = exploreRepository.getRecommendedMovies(movie_id, page)) {
             is Resource.Success -> {
-                _recommendedMovie.postValue(list.data!!)
+                currentMovieList.postValue(list.data!!.results)
             }
             is Resource.Error -> {
                 onError(list.message)

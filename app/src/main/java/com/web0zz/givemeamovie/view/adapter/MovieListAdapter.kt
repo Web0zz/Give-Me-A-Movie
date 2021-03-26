@@ -6,7 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.web0zz.givemeamovie.databinding.MovieViewBinding
 import com.web0zz.givemeamovie.model.entity.Movie
 
-class MovieListAdapter(private val items: List<Movie>) : RecyclerView.Adapter<MovieListAdapter.MoviesViewHolder>() {
+class MovieListAdapter(
+        private val items: List<Movie>
+) : RecyclerView.Adapter<MovieListAdapter.MoviesViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)

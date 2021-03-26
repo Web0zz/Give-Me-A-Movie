@@ -74,10 +74,10 @@ class ExploreRepository @Inject constructor(
         }
    }
 
-    /*  It will send Movie list when there is liked movies
-    *   if there is no movie in liked
-    *   data will taken from API service
-    *   if everything is go wrong it will execute error function
+    /*  It will send Movie list when there is liked movie
+    *   if can't find movie in liked
+    *   will take data from API service
+    *   if everything is go wrong, it will execute error function
     * */
     suspend fun getMovies(
             onLikedMovieList: (MutableList<Movie>) -> Unit,

@@ -2,12 +2,12 @@ package com.web0zz.givemeamovie.binding
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.web0zz.givemeamovie.model.entity.LibrarywithMovies
 import com.web0zz.givemeamovie.model.entity.Movie
+import com.web0zz.givemeamovie.model.entity.MovieLibrary
 import com.web0zz.givemeamovie.model.network.credits.Cast
 import com.web0zz.givemeamovie.model.network.movie_lists.MovieListSection
-import com.web0zz.givemeamovie.view.adapter.CastListAdapter
-import com.web0zz.givemeamovie.view.adapter.MovieListAdapter
-import com.web0zz.givemeamovie.view.adapter.MovieListSectionAdapter
+import com.web0zz.givemeamovie.view.adapter.*
 
 object RecyclerViewBinding {
 
@@ -27,5 +27,17 @@ object RecyclerViewBinding {
     @BindingAdapter("adapterMovieSection")
     fun bindAdapterMovieSection(view: RecyclerView, movieSection: List<MovieListSection>) {
         view.adapter = MovieListSectionAdapter(movieSection)
+    }
+
+    @JvmStatic
+    @BindingAdapter("adapterWatchList")
+    fun bindAdapterMovieSection(view: RecyclerView, dat: LibrarywithMovies) {
+        view.adapter = MovieWatchListAdapter(dat)
+    }
+
+    @JvmStatic
+    @BindingAdapter("adapterWatchListLine")
+    fun bindAdapterWatchlist(view: RecyclerView, library: List<MovieLibrary>) {
+        view.adapter = AddToWatchlistAdapter(library)
     }
 }

@@ -6,7 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.web0zz.givemeamovie.databinding.CastViewBinding
 import com.web0zz.givemeamovie.model.network.credits.Cast
 
-class CastListAdapter(private val items: List<Cast>) : RecyclerView.Adapter<CastListAdapter.CastViewHolder>() {
+class CastListAdapter(
+        private val items: List<Cast>
+) : RecyclerView.Adapter<CastListAdapter.CastViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CastViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)

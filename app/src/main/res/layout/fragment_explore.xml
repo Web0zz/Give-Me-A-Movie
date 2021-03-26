@@ -1,11 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".view.ui.explore.ExploreFragment">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <data>
 
-    </RelativeLayout>
+        <import type="com.web0zz.givemeamovie.data.remote.Network"/>
+
+        <variable
+            name="movie"
+            type="com.web0zz.givemeamovie.model.entity.Movie" />
+        <variable
+            name="vm"
+            type="com.web0zz.givemeamovie.view.ui.explore.ExploreViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/deep_black">
+
+        <TextView
+            android:id="@+id/explore_movie_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{movie.component11()}"
+            android:textColor="@color/white"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/explore_movie_poster"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.796"
+            tools:text="Fear of Rain" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/explore_movie_poster"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="150dp"
+            android:layout_marginEnd="50dp"
+            app:cardCornerRadius="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                LoadImage="@{Network.getPosterURL(movie.poster_path)}"
+                android:layout_width="wrap_content"
+                android:layout_height="380dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                tools:src="@drawable/w500poster" />
+
+        </androidx.cardview.widget.CardView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/like_movie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:clickable="true"
+            android:contentDescription="@string/like_movie"
+            android:focusable="true"
+            android:src="@drawable/like_icon"
+            app:backgroundTint="#DCE3DA"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/skip_movie"
+            app:layout_constraintTop_toBottomOf="@+id/explore_movie_poster"
+            app:rippleColor="#1E1E1E" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/skip_movie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:clickable="true"
+            android:contentDescription="@string/skip_movie"
+            android:focusable="true"
+            android:src="@drawable/unlike_icon"
+            app:backgroundTint="#DCE3DA"
+            app:layout_constraintEnd_toStartOf="@+id/like_movie"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/explore_movie_poster" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

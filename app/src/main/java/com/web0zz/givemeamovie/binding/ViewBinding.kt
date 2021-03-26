@@ -2,11 +2,13 @@ package com.web0zz.givemeamovie.binding
 
 import android.annotation.SuppressLint
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.web0zz.givemeamovie.R
 import com.web0zz.givemeamovie.model.entity.Movie
 import com.web0zz.givemeamovie.model.entity.MovieLibraryCrossRef
 import com.web0zz.givemeamovie.model.network.movie_detail.Detail
@@ -55,4 +57,20 @@ object ViewBinding {
         view.text = genres.joinToString(",")
     }
 
+    @JvmStatic
+    @SuppressLint("SetTextI18n")
+    @BindingAdapter("WatchlistSize")
+    fun bindWatchListSize(view: TextView, size: Int) {
+        view.text = "$size - on the list"
+    }
+
+    @JvmStatic
+    @BindingAdapter("expandButton")
+    fun bindExpandImageButton(view: ImageButton, active: Boolean) {
+        if(active) {
+            view.setImageResource(R.drawable.expand_less_icon)
+        } else {
+            view.setImageResource(R.drawable.expand_more_icon)
+        }
+    }
 }

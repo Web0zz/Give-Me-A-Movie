@@ -16,4 +16,13 @@
     <string name="like_button">like_button</string>
     <string name="search">Search</string>
     <string name="your_likes">Your Likes</string>
+    <string name="watchlist">Watchlist</string>
+    <string name="expand_button">expand_button</string>
+    <string name="delete_button">delete_button</string>
+    <string name="like_movie">Like movie</string>
+    <string name="skip_movie">Skip movie</string>
+    <string name="add_to_list">Add to List:</string>
+    <string name="close_adding_to_list">close adding to list</string>
+    <string name="add_new_watchlist">add new watchlist</string>
+    <string name="name_of_list">Name of list</string>
 </resources>
