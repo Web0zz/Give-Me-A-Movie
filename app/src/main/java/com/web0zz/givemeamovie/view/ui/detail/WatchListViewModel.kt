@@ -1,4 +1,4 @@
-package com.web0zz.givemeamovie.view.ui.home
+package com.web0zz.givemeamovie.view.ui.detail
 
 import androidx.lifecycle.*
 import com.web0zz.givemeamovie.model.entity.Movie
@@ -23,7 +23,6 @@ class WatchListViewModel @Inject constructor(
     init {
         getAvailableLibraries()
     }
-
 
     fun setSelectedMovie(movie: Movie) {
         _selectedMovie.postValue(movie)

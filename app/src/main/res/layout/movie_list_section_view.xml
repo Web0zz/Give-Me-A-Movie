@@ -5,9 +5,14 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="movieSection"
             type="com.web0zz.givemeamovie.model.network.movie_lists.MovieListSection" />
+
+        <variable
+            name="clickListener"
+            type="com.web0zz.givemeamovie.view.adapter.MovieListAdapter.MovieClickListener" />
     </data>
 
 
@@ -33,7 +38,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            adapterMovieList="@{movieSection.component2()}"
+            app:adapterMovieList="@{movieSection.component2()}"
+            app:onClickListener="@{clickListener}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/section_title" />
 

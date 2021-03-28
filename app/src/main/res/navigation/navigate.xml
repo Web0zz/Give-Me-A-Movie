@@ -27,7 +27,14 @@
         android:id="@+id/detailFragment"
         android:name="com.web0zz.givemeamovie.view.ui.detail.DetailFragment"
         android:label="fragment_detail"
-        tools:layout="@layout/fragment_detail" />
+        tools:layout="@layout/fragment_detail" >
+        <action
+            android:id="@+id/action_detailFragment_self"
+            app:destination="@id/detailFragment" />
+        <argument
+            android:name="selected_movie"
+            app:argType="com.web0zz.givemeamovie.model.entity.Movie" />
+    </fragment>
     <fragment
         android:id="@+id/favoriteFragment"
         android:name="com.web0zz.givemeamovie.view.ui.favorite.FavoriteFragment"

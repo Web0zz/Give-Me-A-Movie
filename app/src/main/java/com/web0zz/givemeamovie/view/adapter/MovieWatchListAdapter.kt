@@ -10,7 +10,8 @@ import com.web0zz.givemeamovie.model.entity.Movie
 import com.web0zz.givemeamovie.model.entity.MovieLibrary
 
 class MovieWatchListAdapter(
-        private val libraryAndMovies: LibrarywithMovies
+        private val libraryAndMovies: LibrarywithMovies,
+        private val clickListener: MovieListAdapter.MovieClickListener
 ): RecyclerView.Adapter<MovieWatchListAdapter.MovieWatchListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieWatchListAdapter.MovieWatchListViewHolder {
@@ -24,6 +25,7 @@ class MovieWatchListAdapter(
         with(holder.binding) {
             watchList = libraryAndMovies.Libraries[position]
             movieList = libraryAndMovies.Movies[position]
+            clickListener = clickListener
             executePendingBindings()
         }
         val layoutManager: RecyclerView.LayoutManager = GridLayoutManager(holder.binding.root.context, 3, GridLayoutManager.VERTICAL, false)

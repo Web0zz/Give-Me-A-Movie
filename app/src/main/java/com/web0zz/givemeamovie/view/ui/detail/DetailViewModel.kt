@@ -28,34 +28,55 @@ class DetailViewModel @Inject constructor(
     private var _movieVideo = MutableLiveData<Video>()
     val movieVideo: LiveData<Video> = _movieVideo
 
-    private var _movieKeywords = MutableLiveData<Keyword_List>()
-    val movieKeywords: LiveData<Keyword_List> = _movieKeywords
-
     private var _similarMovies = MutableLiveData<Movie_list>()
     val similarMovies: LiveData<Movie_list> = _similarMovies
 
     private var _askMovieInLibrary = MutableLiveData<Boolean>()
     val askMovieInLibrary: LiveData<Boolean> = _askMovieInLibrary
 
-    fun addToLibrary(crossRef: MovieLibraryCrossRef, movie: Movie) {
+    // Main function for Ui
+    fun likeAction(movie: Movie): Boolean {
+        val crossRef = MovieLibraryCrossRef("LIKED", movieDetail.value!!.id)
+        checkIsThere(crossRef)
+        return if (askMovieInLibrary.value!!) {
+            deleteFromLibrary(crossRef, movie)
+            false
+        } else {
+            addToLibrary(crossRef, movie)
+            true
+        }
+    }
+
+    fun getMovieDetails(
+            movie_id: Int,
+            onError: (String?) -> Unit
+    ) {
+        fetchMovieDetail(movie_id, onError)
+        fetchMovieCast(movie_id, onError)
+        fetchVideos(movie_id, onError)
+        fetchVideos(movie_id, onError)
+    }
+    // ****
+
+    private fun addToLibrary(crossRef: MovieLibraryCrossRef, movie: Movie) {
         viewModelScope.launch {
             detailRepository.addToLibrary(crossRef, movie)
         }
     }
 
-    fun deleteFromLibrary(crossRef: MovieLibraryCrossRef, movie: Movie) {
+    private fun deleteFromLibrary(crossRef: MovieLibraryCrossRef, movie: Movie) {
         viewModelScope.launch {
             detailRepository.deleteFromLibrary(crossRef, movie)
         }
     }
 
-    fun checkIsThere(crossRef: MovieLibraryCrossRef) {
+    private fun checkIsThere(crossRef: MovieLibraryCrossRef) {
         viewModelScope.launch {
             _askMovieInLibrary.postValue(detailRepository.checkIsThere(crossRef))
         }
     }
 
-    fun fetchMovieDetail(
+    private fun fetchMovieDetail(
             movie_id: Int,
             onError: (String?) -> Unit
     ) {
@@ -66,7 +87,7 @@ class DetailViewModel @Inject constructor(
         }
     }
 
-    fun fetchMovieCast(
+    private fun fetchMovieCast(
             movie_id: Int,
             onError: (String?) -> Unit
     ) {
@@ -77,7 +98,7 @@ class DetailViewModel @Inject constructor(
         }
     }
 
-    fun fetchVideos(
+    private fun fetchVideos(
             movie_id: Int,
             onError: (String?) -> Unit
     ) {
@@ -88,7 +109,8 @@ class DetailViewModel @Inject constructor(
         }
     }
 
-    fun fetchKeywords(
+    //TODO no need keywords will delete later
+    /*private fun fetchKeywords(
             movie_id: Int,
             onError: (String?) -> Unit
     ) {
@@ -98,8 +120,8 @@ class DetailViewModel @Inject constructor(
             is Resource.Error -> onError(keywords.value?.message)
         }
     }
-
-    fun fetchSimilarMovies(
+*/
+    private fun fetchSimilarMovies(
             movie_id: Int,
             onError: (String?) -> Unit
     ) {

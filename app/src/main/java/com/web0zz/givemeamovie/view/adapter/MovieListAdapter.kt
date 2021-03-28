@@ -4,10 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.web0zz.givemeamovie.databinding.MovieViewBinding
+import com.web0zz.givemeamovie.generated.callback.OnClickListener
 import com.web0zz.givemeamovie.model.entity.Movie
 
 class MovieListAdapter(
-        private val items: List<Movie>
+        private val items: List<Movie>,
+        private val clickListener: MovieClickListener
 ) : RecyclerView.Adapter<MovieListAdapter.MoviesViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesViewHolder {
@@ -20,6 +22,7 @@ class MovieListAdapter(
     override fun onBindViewHolder(holder: MoviesViewHolder, position: Int) {
         with(holder.binding) {
             movie = items[position]
+            clickListener = clickListener
             executePendingBindings()
         }
     }
@@ -28,4 +31,8 @@ class MovieListAdapter(
 
     class MoviesViewHolder(val binding: MovieViewBinding) :
             RecyclerView.ViewHolder(binding.root)
+
+    class MovieClickListener(val clickListener: (movie: Movie) -> Unit) {
+        fun onClick(movie: Movie) = clickListener(movie)
+    }
 }

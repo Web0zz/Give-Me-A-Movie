@@ -1,8 +1,11 @@
 package com.web0zz.givemeamovie.model.entity
 
+import android.os.Parcelable
 import androidx.room.Entity
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 @Entity(primaryKeys = ["movie_id"])
 data class Movie(
         val adult: Boolean,
@@ -20,4 +23,4 @@ data class Movie(
         val video: Boolean,
         val vote_average: Double,
         val vote_count: Int
-)
+) : Parcelable

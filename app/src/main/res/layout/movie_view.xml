@@ -10,11 +10,16 @@
         <variable
             name="movie"
             type="com.web0zz.givemeamovie.model.entity.Movie" />
+
+        <variable
+            name="clickListener"
+            type="com.web0zz.givemeamovie.view.adapter.MovieListAdapter.MovieClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> clickListener.onClick(movie)}">
 
         <androidx.cardview.widget.CardView
             android:layout_width="150dp"

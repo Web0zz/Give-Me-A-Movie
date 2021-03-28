@@ -18,21 +18,21 @@ object RecyclerViewBinding {
     }
 
     @JvmStatic
-    @BindingAdapter("adapterMovieList")
-    fun bindAdapterMovieList(view: RecyclerView, movie: List<Movie>) {
-        view.adapter = MovieListAdapter(movie)
+    @BindingAdapter(value = ["adapterMovieList", "onClickListener"])
+    fun bindAdapterMovieList(view: RecyclerView, movie: List<Movie>, clickListener: MovieListAdapter.MovieClickListener) {
+        view.adapter = MovieListAdapter(movie, clickListener)
     }
 
     @JvmStatic
-    @BindingAdapter("adapterMovieSection")
-    fun bindAdapterMovieSection(view: RecyclerView, movieSection: List<MovieListSection>) {
-        view.adapter = MovieListSectionAdapter(movieSection)
+    @BindingAdapter(value = ["adapterMovieSection", "onClickListener"])
+    fun bindAdapterMovieSection(view: RecyclerView, movieSection: List<MovieListSection>, onClickListener: MovieListAdapter.MovieClickListener) {
+        view.adapter = MovieListSectionAdapter(movieSection, onClickListener)
     }
 
     @JvmStatic
-    @BindingAdapter("adapterWatchList")
-    fun bindAdapterMovieSection(view: RecyclerView, dat: LibrarywithMovies) {
-        view.adapter = MovieWatchListAdapter(dat)
+    @BindingAdapter(value = ["adapterWatchList", "onClickListener"])
+    fun bindAdapterMovieSection(view: RecyclerView, dat: LibrarywithMovies, onClickListener: MovieListAdapter.MovieClickListener) {
+        view.adapter = MovieWatchListAdapter(dat, onClickListener)
     }
 
     @JvmStatic

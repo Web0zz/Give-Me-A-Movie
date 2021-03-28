@@ -15,6 +15,9 @@
             name="movieList"
             type="java.util.List&lt;com.web0zz.givemeamovie.model.entity.Movie&gt;" />
         <variable
+            name="clickListener"
+            type="com.web0zz.givemeamovie.view.adapter.MovieListAdapter.MovieClickListener" />
+        <variable
             name="expand"
             type="java.lang.Boolean" />
     </data>
@@ -112,7 +115,8 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:visibility="gone"
-            adapterMovieList="@{movieList}"
+            app:adapterMovieList="@{movieList}"
+            app:onClickListener="@{clickListener}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/back_cardview" />

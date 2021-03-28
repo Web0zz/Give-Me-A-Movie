@@ -9,7 +9,8 @@ import com.web0zz.givemeamovie.databinding.MovieListSectionViewBinding
 import com.web0zz.givemeamovie.model.network.movie_lists.MovieListSection
 
 class MovieListSectionAdapter(
-        private val items: List<MovieListSection>
+        private val items: List<MovieListSection>,
+        private val clickListener: MovieListAdapter.MovieClickListener
 ): RecyclerView.Adapter<MovieListSectionAdapter.MovieSectionViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieSectionViewHolder {
@@ -22,6 +23,7 @@ class MovieListSectionAdapter(
     override fun onBindViewHolder(holder: MovieSectionViewHolder, position: Int) {
         with(holder.binding) {
             movieSection = items[position]
+            clickListener = clickListener
             executePendingBindings()
         }
         // !!!

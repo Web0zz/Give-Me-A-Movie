@@ -12,8 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FavoriteViewModel @Inject constructor(
-        private val favoriteRepository: FavoriteRepository,
-        private val movieWatchListRepository: MovieWatchListRepository
+        private val favoriteRepository: FavoriteRepository
 ): ViewModel() {
 
     private lateinit var _moviesAndLibraries: MutableLiveData<LibrarywithMovies>
