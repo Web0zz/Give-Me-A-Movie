@@ -64,13 +64,4 @@ object ViewBinding {
         view.text = "$size - on the list"
     }
 
-    @JvmStatic
-    @BindingAdapter("expandButton")
-    fun bindExpandImageButton(view: ImageButton, active: Boolean) {
-        if(active) {
-            view.setImageResource(R.drawable.expand_less_icon)
-        } else {
-            view.setImageResource(R.drawable.expand_more_icon)
-        }
-    }
 }

@@ -1,9 +1,11 @@
 package com.web0zz.givemeamovie.view.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.web0zz.givemeamovie.R
 import com.web0zz.givemeamovie.databinding.WatchlistListViewBinding
 import com.web0zz.givemeamovie.model.entity.LibrarywithMovies
 import com.web0zz.givemeamovie.model.entity.Movie
@@ -27,6 +29,15 @@ class MovieWatchListAdapter(
             movieList = libraryAndMovies.Movies[position]
             clickListener = clickListener
             executePendingBindings()
+            expandButton.setOnClickListener {
+                if (watchlistMovieList.visibility == View.VISIBLE) {
+                    watchlistMovieList.visibility = View.GONE
+                    expandButton.setImageResource(R.drawable.expand_more_icon)
+                } else {
+                    watchlistMovieList.visibility = View.VISIBLE
+                    expandButton.setImageResource(R.drawable.expand_less_icon)
+                }
+            }
         }
         val layoutManager: RecyclerView.LayoutManager = GridLayoutManager(holder.binding.root.context, 3, GridLayoutManager.VERTICAL, false)
         holder.binding.watchlistMovieList.layoutManager = layoutManager

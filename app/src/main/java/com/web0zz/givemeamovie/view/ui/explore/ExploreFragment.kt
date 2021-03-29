@@ -19,13 +19,27 @@ class ExploreFragment : Fragment() {
     private var _binding: FragmentExploreBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: ExploreViewModel by viewModels()
+    private val exploreViewModel: ExploreViewModel by viewModels()
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentExploreBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = this
+
+        with(binding) {
+            vm = exploreViewModel
+            executePendingBindings()
+        }
+
+        binding.likeMovie.setOnClickListener {
+            exploreViewModel.getNewMovieForUi(true)
+        }
+
+        binding.skipMovie.setOnClickListener {
+            exploreViewModel.getNewMovieForUi(false)
+        }
 
         return binding.root
     }

@@ -6,6 +6,9 @@
         <variable
             name="vm"
             type="com.web0zz.givemeamovie.view.ui.detail.WatchListViewModel" />
+        <variable
+            name="clickListenerAdd"
+            type="com.web0zz.givemeamovie.view.adapter.AddToWatchlistAdapter.WatchListAddToListClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -55,6 +58,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:adapterWatchListLine="@{vm.availableLists}"
+            app:onClickListener="@{clickListenerAdd}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider" />

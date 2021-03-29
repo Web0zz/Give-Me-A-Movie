@@ -31,13 +31,13 @@ object RecyclerViewBinding {
 
     @JvmStatic
     @BindingAdapter(value = ["adapterWatchList", "onClickListener"])
-    fun bindAdapterMovieSection(view: RecyclerView, dat: LibrarywithMovies, onClickListener: MovieListAdapter.MovieClickListener) {
-        view.adapter = MovieWatchListAdapter(dat, onClickListener)
+    fun bindAdapterMovieSection(view: RecyclerView, data: LibrarywithMovies, onClickListener: MovieListAdapter.MovieClickListener) {
+        view.adapter = MovieWatchListAdapter(data, onClickListener)
     }
 
     @JvmStatic
-    @BindingAdapter("adapterWatchListLine")
-    fun bindAdapterWatchlist(view: RecyclerView, library: List<MovieLibrary>) {
-        view.adapter = AddToWatchlistAdapter(library)
+    @BindingAdapter(value = ["adapterWatchListLine", "onClickListener"])
+    fun bindAdapterWatchlist(view: RecyclerView, library: List<MovieLibrary>, onClickListenerToListClickListener: AddToWatchlistAdapter.WatchListAddToListClickListener) {
+        view.adapter = AddToWatchlistAdapter(library, onClickListenerToListClickListener)
     }
 }

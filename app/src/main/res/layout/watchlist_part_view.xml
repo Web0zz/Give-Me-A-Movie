@@ -26,14 +26,14 @@
             android:textSize="22sp"
             android:textStyle="bold"
             android:text="@{watchlist.component1()}"
-            app:layout_constraintEnd_toStartOf="@+id/checkBox"
+            app:layout_constraintEnd_toStartOf="@+id/adding_movie_to_list"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="my list" />
 
         <CheckBox
-            android:id="@+id/checkBox"
+            android:id="@+id/adding_movie_to_list"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
