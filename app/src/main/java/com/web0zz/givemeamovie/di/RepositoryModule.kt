@@ -20,20 +20,20 @@ object RepositoryModule {
     @Singleton
     @Provides
     fun provideDetailRepository(
-            movieDetailService: MovieDetailService,
-            movieLibraryWithMoviesDao: MovieLibraryWithMoviesDao,
-            movieDao: MovieDao
+        movieDetailService: MovieDetailService,
+        movieLibraryWithMoviesDao: MovieLibraryWithMoviesDao,
+        movieDao: MovieDao
     ): Repository {
-        return DetailRepository(movieDetailService,movieLibraryWithMoviesDao,movieDao)
+        return DetailRepository(movieDetailService, movieLibraryWithMoviesDao, movieDao)
     }
 
     @Singleton
     @Provides
     fun provideExploreRepository(
-            movieListService: MovieListService,
-            movieDao: MovieDao,
-            croffRefDao: MovieLibraryWithMoviesDao,
-            likedMovieRecommendationDao: LikedMovieRecommendationDao
+        movieListService: MovieListService,
+        movieDao: MovieDao,
+        croffRefDao: MovieLibraryWithMoviesDao,
+        likedMovieRecommendationDao: LikedMovieRecommendationDao
     ): Repository {
         return ExploreRepository(movieListService, movieDao, croffRefDao, likedMovieRecommendationDao)
     }
@@ -47,9 +47,9 @@ object RepositoryModule {
     @Singleton
     @Provides
     fun provideFavoriteRepository(
-            movieLibraryWithMoviesDao: MovieLibraryWithMoviesDao,
-            movieLibraryDao: LibraryDao,
-            movieDao: MovieDao
+        movieLibraryWithMoviesDao: MovieLibraryWithMoviesDao,
+        movieLibraryDao: LibraryDao,
+        movieDao: MovieDao
     ): Repository {
         return FavoriteRepository(movieLibraryWithMoviesDao, movieLibraryDao, movieDao)
     }
@@ -57,9 +57,9 @@ object RepositoryModule {
     @Singleton
     @Provides
     fun provideMovieWatchListRepository(
-            movieLibraryDao: LibraryDao,
-            movieLibraryWithMoviesDao: MovieLibraryWithMoviesDao,
-            movieDao: MovieDao
+        movieLibraryDao: LibraryDao,
+        movieLibraryWithMoviesDao: MovieLibraryWithMoviesDao,
+        movieDao: MovieDao
     ): Repository {
         return MovieWatchListRepository(movieLibraryDao, movieLibraryWithMoviesDao, movieDao)
     }

@@ -1,6 +1,5 @@
 package com.web0zz.givemeamovie.model.network.movie_detail
 
-
 data class Detail(
     val adult: Boolean,
     val backdrop_path: String,

@@ -1,6 +1,5 @@
 package com.web0zz.givemeamovie.model.network.credits
 
-
 data class Crew(
     val adult: Boolean,
     val credit_id: String,

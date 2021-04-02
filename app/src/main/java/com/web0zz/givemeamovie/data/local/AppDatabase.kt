@@ -15,12 +15,12 @@ import com.web0zz.givemeamovie.model.entity.RecommendMovie
         MovieLibrary::class,
         MovieLibraryCrossRef::class,
         RecommendMovie::class
-               ],
+    ],
     version = 1,
     exportSchema = false
 )
 @TypeConverters(IntegerListConverter::class)
-abstract class AppDatabase: RoomDatabase() {
+abstract class AppDatabase : RoomDatabase() {
     abstract fun libraryDao(): LibraryDao
     abstract fun movieDao(): MovieDao
     abstract fun movieLibraryWithMoviesDao(): MovieLibraryWithMoviesDao

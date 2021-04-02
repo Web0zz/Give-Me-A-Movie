@@ -13,14 +13,13 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
-
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideInterceptor() : OkHttpClient {
+    fun provideInterceptor(): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(NetworkInterceptor())
             .build()
@@ -28,7 +27,7 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideRetrofit(okHttpClient: OkHttpClient) : Retrofit {
+    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl(BASE_URL)
@@ -40,9 +39,7 @@ object NetworkModule {
     @Provides
     fun provideMovieDetailService(retrofit: Retrofit) = retrofit.create(MovieDetailService::class.java)
 
-
     @Singleton
     @Provides
     fun provideMovieListService(retrofit: Retrofit) = retrofit.create(MovieListService::class.java)
-
 }

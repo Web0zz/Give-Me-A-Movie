@@ -12,9 +12,6 @@
             name="vm"
             type="com.web0zz.givemeamovie.view.ui.detail.DetailViewModel" />
         <variable
-            name="movie"
-            type="com.web0zz.givemeamovie.model.entity.Movie" />
-        <variable
             name="clickListener"
             type="com.web0zz.givemeamovie.view.adapter.MovieListAdapter.MovieClickListener" />
     </data>
@@ -215,15 +212,6 @@
                     app:layout_constraintTop_toBottomOf="@+id/movie_overview"
                     android:backgroundTint="@color/deep_black" />
 
-                <include
-                    android:id="@+id/watchlist_frame_include"
-                    layout="@layout/watchlist_frame"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/add_movie_to_watchlist_button" />
 
 
                 <TextView
@@ -237,16 +225,18 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/watchlist_frame_include" />
+                    app:layout_constraintTop_toBottomOf="@id/like_button" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/cast_recyclerView"
                     app:adapterCastList="@{vm.movieCast.component1()}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
+                    android:layout_marginStart="5dp"
                     android:layout_marginTop="9dp"
-                    android:layout_marginEnd="20dp"
+                    android:layout_marginEnd="5dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -271,9 +261,11 @@
                     android:layout_height="wrap_content"
                     app:adapterMovieList="@{vm.similarMovies.component2()}"
                     app:onClickListener="@{clickListener}"
-                    android:layout_marginStart="20dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="5dp"
                     android:layout_marginTop="4dp"
-                    android:layout_marginEnd="20dp"
+                    android:layout_marginEnd="5dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/similar_title" />

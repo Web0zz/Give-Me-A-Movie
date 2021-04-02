@@ -7,7 +7,7 @@ sealed class Resource<T>(val data: T?, val message: String?) {
     class Error<T>(message: String) : Resource<T>(null, message)
 
     companion object {
-        suspend fun <T> toResource(f: suspend () -> Response<T>) : Resource<T>  {
+        suspend fun <T> toResource(f: suspend () -> Response<T>): Resource<T> {
             return try {
                 val response = f()
                 val result = response.body()

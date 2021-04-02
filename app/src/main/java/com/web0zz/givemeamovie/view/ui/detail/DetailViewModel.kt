@@ -5,19 +5,19 @@ import com.web0zz.givemeamovie.data.remote.Resource
 import com.web0zz.givemeamovie.model.entity.Movie
 import com.web0zz.givemeamovie.model.entity.MovieLibraryCrossRef
 import com.web0zz.givemeamovie.model.network.credits.Cast_and_Crew
-import com.web0zz.givemeamovie.model.network.keywords.Keyword_List
 import com.web0zz.givemeamovie.model.network.movie_detail.Detail
 import com.web0zz.givemeamovie.model.network.movie_detail.Video
 import com.web0zz.givemeamovie.model.network.movie_lists.Movie_list
 import com.web0zz.givemeamovie.repository.DetailRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(
-        private val detailRepository: DetailRepository
-): ViewModel() {
+    private val detailRepository: DetailRepository
+) : ViewModel() {
 
     private var _movieDetail = MutableLiveData<Detail>()
     val movieDetail: LiveData<Detail> = _movieDetail
@@ -32,13 +32,12 @@ class DetailViewModel @Inject constructor(
     val similarMovies: LiveData<Movie_list> = _similarMovies
 
     private var _askMovieInLibrary = MutableLiveData<Boolean>()
-    val askMovieInLibrary: LiveData<Boolean> = _askMovieInLibrary
 
     // Main function for Ui
     fun likeAction(movie: Movie): Boolean {
         val crossRef = MovieLibraryCrossRef("LIKED", movieDetail.value!!.id)
         checkIsThere(crossRef)
-        return if (askMovieInLibrary.value!!) {
+        return if (_askMovieInLibrary.value!!) {
             deleteFromLibrary(crossRef, movie)
             false
         } else {
@@ -48,13 +47,14 @@ class DetailViewModel @Inject constructor(
     }
 
     fun getMovieDetails(
-            movie_id: Int,
-            onError: (String?) -> Unit
+        movie_id: Int,
+        onError: (String?) -> Unit
     ) {
         fetchMovieDetail(movie_id, onError)
         fetchMovieCast(movie_id, onError)
         fetchVideos(movie_id, onError)
         fetchVideos(movie_id, onError)
+        fetchSimilarMovies(movie_id, onError)
     }
     // ****
 
@@ -77,58 +77,50 @@ class DetailViewModel @Inject constructor(
     }
 
     private fun fetchMovieDetail(
-            movie_id: Int,
-            onError: (String?) -> Unit
+        movie_id: Int,
+        onError: (String?) -> Unit
     ) {
-        val detail = detailRepository.fetchMovieDetail(movie_id).asLiveData()
-        when(detail.value) {
-            is Resource.Success -> _movieDetail.postValue(detail.value?.data!!)
-            is Resource.Error -> onError(detail.value?.message)
+        viewModelScope.launch(Dispatchers.IO) {
+            when (val detail = detailRepository.fetchMovieDetail(movie_id)) {
+                is Resource.Success -> _movieDetail.postValue(detail.data!!)
+                is Resource.Error -> onError(detail.message)
+            }
         }
     }
 
     private fun fetchMovieCast(
-            movie_id: Int,
-            onError: (String?) -> Unit
+        movie_id: Int,
+        onError: (String?) -> Unit
     ) {
-        val cast = detailRepository.fetchMovieCast(movie_id).asLiveData()
-        when(cast.value) {
-            is Resource.Success -> _movieCast.postValue(cast.value?.data!!)
-            is Resource.Error -> onError(cast.value?.message)
+        viewModelScope.launch(Dispatchers.IO) {
+            when (val cast = detailRepository.fetchMovieCast(movie_id)) {
+                is Resource.Success -> _movieCast.postValue(cast.data!!)
+                is Resource.Error -> onError(cast.message)
+            }
         }
     }
 
     private fun fetchVideos(
-            movie_id: Int,
-            onError: (String?) -> Unit
+        movie_id: Int,
+        onError: (String?) -> Unit
     ) {
-        val videos = detailRepository.fetchVideos(movie_id).asLiveData()
-        when(videos.value) {
-            is Resource.Success -> _movieVideo.postValue(videos.value?.data!!)
-            is Resource.Error -> onError(videos.value?.message)
+        viewModelScope.launch(Dispatchers.IO) {
+            when (val videos = detailRepository.fetchVideos(movie_id)) {
+                is Resource.Success -> _movieVideo.postValue(videos.data!!)
+                is Resource.Error -> onError(videos.message)
+            }
         }
     }
 
-    //TODO no need keywords will delete later
-    /*private fun fetchKeywords(
-            movie_id: Int,
-            onError: (String?) -> Unit
-    ) {
-        val keywords = detailRepository.fetchKeywords(movie_id).asLiveData()
-        when(keywords.value) {
-            is Resource.Success -> _movieKeywords.postValue(keywords.value?.data!!)
-            is Resource.Error -> onError(keywords.value?.message)
-        }
-    }
-*/
     private fun fetchSimilarMovies(
-            movie_id: Int,
-            onError: (String?) -> Unit
+        movie_id: Int,
+        onError: (String?) -> Unit
     ) {
-        val movies = detailRepository.fetchSimilarMovies(movie_id).asLiveData()
-        when(movies.value) {
-            is Resource.Success -> _similarMovies.postValue(movies.value?.data!!)
-            is Resource.Error -> onError(movies.value?.message)
+        viewModelScope.launch(Dispatchers.IO) {
+            when (val movies = detailRepository.fetchSimilarMovies(movie_id)) {
+                is Resource.Success -> _similarMovies.postValue(movies.data!!)
+                is Resource.Error -> onError(movies.message)
+            }
         }
     }
 }

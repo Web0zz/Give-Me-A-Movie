@@ -19,6 +19,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="15dp"
         android:background="@color/deep_black">
 
         <TextView
@@ -40,6 +41,8 @@
             android:layout_marginTop="8dp"
             app:adapterMovieList="@{movieSection.component2()}"
             app:onClickListener="@{clickListener}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/section_title" />
 

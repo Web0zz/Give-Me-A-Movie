@@ -4,5 +4,5 @@ import androidx.room.Entity
 
 @Entity(primaryKeys = ["movieId"])
 data class RecommendMovie(
-        val movieId: Int
+    val movieId: Int
 )

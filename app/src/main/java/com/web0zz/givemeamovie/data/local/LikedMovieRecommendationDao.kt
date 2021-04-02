@@ -5,7 +5,7 @@ import com.web0zz.givemeamovie.model.entity.RecommendMovie
 
 @Dao
 interface LikedMovieRecommendationDao {
-    @Insert(onConflict = OnConflictStrategy.ABORT)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addMovieForRecommendation(recommendMovie: RecommendMovie)
 
     @Delete

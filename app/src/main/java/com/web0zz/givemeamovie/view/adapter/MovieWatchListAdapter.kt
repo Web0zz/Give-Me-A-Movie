@@ -8,13 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.web0zz.givemeamovie.R
 import com.web0zz.givemeamovie.databinding.WatchlistListViewBinding
 import com.web0zz.givemeamovie.model.entity.LibrarywithMovies
-import com.web0zz.givemeamovie.model.entity.Movie
-import com.web0zz.givemeamovie.model.entity.MovieLibrary
 
 class MovieWatchListAdapter(
-        private val libraryAndMovies: LibrarywithMovies,
-        private val clickListener: MovieListAdapter.MovieClickListener
-): RecyclerView.Adapter<MovieWatchListAdapter.MovieWatchListViewHolder>() {
+    private val libraryAndMovies: LibrarywithMovies,
+    private val onClickListener: MovieListAdapter.MovieClickListener
+) : RecyclerView.Adapter<MovieWatchListAdapter.MovieWatchListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieWatchListAdapter.MovieWatchListViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -27,7 +25,7 @@ class MovieWatchListAdapter(
         with(holder.binding) {
             watchList = libraryAndMovies.Libraries[position]
             movieList = libraryAndMovies.Movies[position]
-            clickListener = clickListener
+            clickListener = onClickListener
             executePendingBindings()
             expandButton.setOnClickListener {
                 if (watchlistMovieList.visibility == View.VISIBLE) {
@@ -46,5 +44,5 @@ class MovieWatchListAdapter(
 
     override fun getItemCount() = libraryAndMovies.Libraries.size
     class MovieWatchListViewHolder(val binding: WatchlistListViewBinding) :
-            RecyclerView.ViewHolder(binding.root)
+        RecyclerView.ViewHolder(binding.root)
 }

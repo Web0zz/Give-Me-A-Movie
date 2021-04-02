@@ -3,35 +3,34 @@ package com.web0zz.givemeamovie.data.remote.service
 import com.web0zz.givemeamovie.model.network.movie_lists.Movie_list
 import retrofit2.Response
 import retrofit2.http.GET
-import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface MovieListService {
 
-
-    @GET("movie/{movie_id}/recommendations?language=en-US&page={page}")
+    @GET("movie/{movie_id}/recommendations?language=en-US")
     suspend fun fetchRecommendationMovie(
-            @Path("movie_id") movie_id: Int,
-            @Path("page") page: Int
+        @Query("movie_id") movie_id: Int,
+        @Query("page") page: Int
     ): Response<Movie_list>
 
-    @GET("search/movie?language=en-US&query={query}&page={page}&include_adult=false")
+    @GET("search/movie?language=en-US&include_adult=false")
     suspend fun fetchSearchMovie(
-            @Path("query") query: String,
-            @Path("page") page: Int
+        @Query("query") query: String,
+        @Query("page") page: Int
     ): Response<Movie_list>
 
-    @GET("movie/now_playing?language=en-US&page={page}")
+    @GET("movie/now_playing?language=en-US")
     suspend fun fetchNowPlayingMovie(
-            @Path("page") page: Int
+        @Query("page") page: Int
     ): Response<Movie_list>
 
-    @GET("movie/popular?language=en-US&page={page}")
+    @GET("movie/popular?language=en-US")
     suspend fun fetchPopularMovie(
-            @Path("page") page: Int
+        @Query("page") page: Int
     ): Response<Movie_list>
 
-    @GET("movie/top_rated?language=en-US&page={page}")
+    @GET("movie/top_rated?language=en-US")
     suspend fun fetchTopRatedMovie(
-            @Path("page") page: Int
+        @Query("page") page: Int
     ): Response<Movie_list>
 }

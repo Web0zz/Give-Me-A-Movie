@@ -7,7 +7,7 @@ import com.web0zz.givemeamovie.databinding.CastViewBinding
 import com.web0zz.givemeamovie.model.network.credits.Cast
 
 class CastListAdapter(
-        private val items: List<Cast>
+    private val items: List<Cast>
 ) : RecyclerView.Adapter<CastListAdapter.CastViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CastViewHolder {
@@ -27,5 +27,5 @@ class CastListAdapter(
     override fun getItemCount(): Int = items.size
 
     class CastViewHolder(val binding: CastViewBinding) :
-            RecyclerView.ViewHolder(binding.root)
+        RecyclerView.ViewHolder(binding.root)
 }

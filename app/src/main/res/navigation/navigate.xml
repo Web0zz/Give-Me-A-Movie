@@ -33,7 +33,7 @@
             app:destination="@id/detailFragment" />
         <argument
             android:name="selected_movie"
-            app:argType="com.web0zz.givemeamovie.model.entity.Movie" />
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/favoriteFragment"

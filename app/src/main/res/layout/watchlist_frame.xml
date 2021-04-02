@@ -59,6 +59,8 @@
             android:layout_height="wrap_content"
             app:adapterWatchListLine="@{vm.availableLists}"
             app:onClickListener="@{clickListenerAdd}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider" />

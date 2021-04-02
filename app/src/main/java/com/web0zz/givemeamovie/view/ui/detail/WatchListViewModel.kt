@@ -11,13 +11,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WatchListViewModel @Inject constructor(
-        private val movieWatchListRepository: MovieWatchListRepository
-): ViewModel() {
+    private val movieWatchListRepository: MovieWatchListRepository
+) : ViewModel() {
 
     private val _selectedMovie = MutableLiveData<Movie>()
-    val selectedMovie: LiveData<Movie> = _selectedMovie
 
-    private lateinit var _availableLists: LiveData<List<MovieLibrary>>
+    private var _availableLists: MutableLiveData<List<MovieLibrary>> = MutableLiveData()
     val availableLists: LiveData<List<MovieLibrary>> = _availableLists
 
     init {
@@ -28,15 +27,15 @@ class WatchListViewModel @Inject constructor(
         _selectedMovie.postValue(movie)
     }
 
-    fun getAvailableLibraries(){
+    private fun getAvailableLibraries() {
         viewModelScope.launch(Dispatchers.IO) {
-            _availableLists = movieWatchListRepository.getAvailableLibraries().asLiveData()
+            _availableLists.postValue(movieWatchListRepository.getAvailableLibraries())
         }
     }
 
     fun insertMovieToNewLibrary(library_name: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            movieWatchListRepository.insertNewLibrary(library_name,_selectedMovie.value!!)
+            movieWatchListRepository.insertNewLibrary(library_name, _selectedMovie.value!!)
             movieWatchListRepository.insertMovie(_selectedMovie.value!!)
             movieWatchListRepository.insertMovieToLibrary(_selectedMovie.value!!, library_name)
         }
@@ -44,19 +43,14 @@ class WatchListViewModel @Inject constructor(
 
     fun insertMovieToAvailableLibrary(library_name: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            movieWatchListRepository.insertMovie(_selectedMovie.value!!)
             movieWatchListRepository.insertMovieToLibrary(_selectedMovie.value!!, library_name)
+            movieWatchListRepository.insertMovie(_selectedMovie.value!!)
         }
     }
 
     fun deleteMovieFromAvailableLibrary(library_name: String) {
         viewModelScope.launch(Dispatchers.IO) {
             movieWatchListRepository.deleteMovieFromLibrary(_selectedMovie.value!!, library_name)
-        }
-    }
-
-    fun deleteMovieFromLib() {
-        viewModelScope.launch(Dispatchers.IO) {
             movieWatchListRepository.deleteMovie(_selectedMovie.value!!)
         }
     }

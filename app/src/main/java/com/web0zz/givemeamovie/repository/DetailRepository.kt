@@ -6,16 +6,17 @@ import com.web0zz.givemeamovie.data.remote.Resource
 import com.web0zz.givemeamovie.data.remote.service.MovieDetailService
 import com.web0zz.givemeamovie.model.entity.Movie
 import com.web0zz.givemeamovie.model.entity.MovieLibraryCrossRef
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
+import com.web0zz.givemeamovie.model.network.credits.Cast_and_Crew
+import com.web0zz.givemeamovie.model.network.movie_detail.Detail
+import com.web0zz.givemeamovie.model.network.movie_detail.Video
+import com.web0zz.givemeamovie.model.network.movie_lists.Movie_list
 import javax.inject.Inject
 
 class DetailRepository @Inject constructor(
-        private val movieDetailService: MovieDetailService,
-        private val movieLibraryWithMoviesDao: MovieLibraryWithMoviesDao,
-        private val movieDao: MovieDao
-): Repository {
+    private val movieDetailService: MovieDetailService,
+    private val movieLibraryWithMoviesDao: MovieLibraryWithMoviesDao,
+    private val movieDao: MovieDao
+) : Repository {
 
     suspend fun addToLibrary(crossRef: MovieLibraryCrossRef, movie: Movie) {
         movieLibraryWithMoviesDao.insert(crossRef)
@@ -29,28 +30,19 @@ class DetailRepository @Inject constructor(
         return movieLibraryWithMoviesDao.checkIsThere(crossRef.movie_id, crossRef.library_Name)
     }
 
-    fun fetchMovieDetail(movie_id: Int) = flow {
-        val detail = Resource.toResource { movieDetailService.fetchMovieDetail(movie_id) }
-        emit(detail)
-    }.flowOn(Dispatchers.IO)
+    suspend fun fetchMovieDetail(movie_id: Int): Resource<Detail> {
+        return Resource.toResource { movieDetailService.fetchMovieDetail(movie_id) }
+    }
 
-    fun fetchMovieCast(movie_id: Int) = flow {
-        val cast = Resource.toResource { movieDetailService.fetchMovieCast(movie_id) }
-        emit(cast)
-    }.flowOn(Dispatchers.IO)
+    suspend fun fetchMovieCast(movie_id: Int): Resource<Cast_and_Crew> {
+        return Resource.toResource { movieDetailService.fetchMovieCast(movie_id) }
+    }
 
-    fun fetchVideos(movie_id: Int) = flow {
-        val video = Resource.toResource { movieDetailService.fetchVideos(movie_id) }
-        emit(video)
-    }.flowOn(Dispatchers.IO)
+    suspend fun fetchVideos(movie_id: Int): Resource<Video> {
+        return Resource.toResource { movieDetailService.fetchVideos(movie_id) }
+    }
 
-    fun fetchKeywords(movie_id: Int) = flow {
-        val keywords = Resource.toResource { movieDetailService.fetchKeywords(movie_id) }
-        emit(keywords)
-    }.flowOn(Dispatchers.IO)
-
-    fun fetchSimilarMovies(movie_id: Int) = flow {
-        val similar = Resource.toResource { movieDetailService.fetchSimilarMovie(movie_id,1) }
-        emit(similar)
-    }.flowOn(Dispatchers.IO)
+    suspend fun fetchSimilarMovies(movie_id: Int): Resource<Movie_list> {
+        return Resource.toResource { movieDetailService.fetchSimilarMovie(movie_id, 1) }
+    }
 }

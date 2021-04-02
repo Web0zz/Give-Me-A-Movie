@@ -4,7 +4,7 @@ import com.web0zz.givemeamovie.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.Response
 
-internal class NetworkInterceptor: Interceptor {
+internal class NetworkInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalRequest = chain.request()
         val originalUrl = originalRequest.url

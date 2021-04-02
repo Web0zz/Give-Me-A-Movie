@@ -15,11 +15,11 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class ExploreRepository @Inject constructor(
-        private val movieListService: MovieListService,
-        private val movieDao: MovieDao,
-        private val croffRefDao: MovieLibraryWithMoviesDao,
-        private val likedMovieRecommendationDao: LikedMovieRecommendationDao
-): Repository {
+    private val movieListService: MovieListService,
+    private val movieDao: MovieDao,
+    private val croffRefDao: MovieLibraryWithMoviesDao,
+    private val likedMovieRecommendationDao: LikedMovieRecommendationDao
+) : Repository {
 
     companion object {
         var currentPage = 1
@@ -37,15 +37,14 @@ class ExploreRepository @Inject constructor(
         return movie
     }
 
-
     // Get Movies in Liked database
     private suspend fun moviesInLikedCross(
-            onSuccess:  suspend (List<MovieLibraryCrossRef>) -> Unit,
-            onError: () -> Unit
+        onSuccess: suspend (List<MovieLibraryCrossRef>) -> Unit,
+        onError: () -> Unit
     ) = withContext(Dispatchers.IO) {
         try {
             val movieList = croffRefDao.getMovies("LIKED")
-            if(movieList != emptyList<MovieLibraryCrossRef>()) {
+            if (movieList != emptyList<MovieLibraryCrossRef>()) {
                 onSuccess(movieList)
             } else {
                 onError()
@@ -59,11 +58,11 @@ class ExploreRepository @Inject constructor(
    *  also when get liked movie operation had failed
    *  */
     private suspend fun getMovieFromPopular(
-           onSuccess: suspend (Resource<Movie_list>) -> Unit,
-           onError: (Throwable) -> Unit
+        onSuccess: suspend (Resource<Movie_list>) -> Unit,
+        onError: (Throwable) -> Unit
     ) = withContext(Dispatchers.IO) {
         try {
-            if(temporaryList != emptyList<Resource<Movie_list>>()){
+            if (temporaryList != emptyList<Resource<Movie_list>>()) {
                 temporaryList.clear()
                 currentPage++
             }
@@ -72,7 +71,7 @@ class ExploreRepository @Inject constructor(
         } catch (ex: Throwable) {
             onError(ex)
         }
-   }
+    }
 
     /*  It will send Movie list when there is liked movie
     *   if can't find movie in liked
@@ -80,41 +79,41 @@ class ExploreRepository @Inject constructor(
     *   if everything is go wrong, it will execute error function
     * */
     suspend fun getMovies(
-            onLikedMovieList: (MutableList<Movie>) -> Unit,
-            onServiceCalled: (Resource<Movie_list>) -> Unit,
-            onMainError: (String?) -> Unit
+        onLikedMovieList: (MutableList<Movie>) -> Unit,
+        onServiceCalled: (Resource<Movie_list>) -> Unit,
+        onMainError: (String?) -> Unit
     ) = withContext(Dispatchers.IO) {
         val movieLikedList: MutableList<Movie> = mutableListOf()
         try {
             moviesInLikedCross(
-                    onSuccess = {
-                        try {
-                            it.map {
-                                movieLikedList.add( movieDao.getMovie(it.movie_id) )
-                            }
-                            onLikedMovieList(movieLikedList)
-                        } catch (ex: Throwable) {
-                            onMainError(ex.localizedMessage)
+                onSuccess = {
+                    try {
+                        it.map { movieLibraryCrossRef ->
+                            val getMovie = movieDao.getMovie(movieLibraryCrossRef.movie_id)
+                            if (getMovie != null) movieLikedList.add(getMovie)
                         }
-                    },
-                    onError = {
-                        launch(Dispatchers.IO) {
-                            getMovieFromPopular(
-                                onSuccess = {
-                                    onServiceCalled(it)
-                                },
-                                onError = {
-                                    onMainError(it.localizedMessage)
-                                }
-                            )
-                        }
+                        onLikedMovieList(movieLikedList)
+                    } catch (ex: Throwable) {
+                        onMainError(ex.localizedMessage)
                     }
+                },
+                onError = {
+                    launch(Dispatchers.IO) {
+                        getMovieFromPopular(
+                            onSuccess = {
+                                onServiceCalled(it)
+                            },
+                            onError = {
+                                onMainError(it.localizedMessage)
+                            }
+                        )
+                    }
+                }
             )
-        } catch (ex: Throwable){
+        } catch (ex: Throwable) {
             onMainError(ex.localizedMessage)
         }
     }
-
 
     suspend fun getRecommendedMovies(movie_id: Int, page: Int = 1): Resource<Movie_list> {
         return Resource.toResource { movieListService.fetchRecommendationMovie(movie_id, page) }
