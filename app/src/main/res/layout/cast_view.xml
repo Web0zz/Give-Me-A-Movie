@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.web0zz.givemeamovie.data.remote.Network"/>
+
+        <variable
+            name="cast"
+            type="com.web0zz.givemeamovie.model.network.credits.Cast" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/deep_black"
+        android:paddingEnd="5dp"
+        tools:ignore="RtlSymmetry">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/cast_view_profile"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="fitXY"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:LoadCircleImage="@{Network.getPosterURL(cast.profile_path)}"
+            tools:src="@drawable/cast" />
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="43dp"
+            android:gravity="center"
+            tools:text="keeane"
+            android:text="@{cast.original_name}"
+            android:textColor="@color/light_gray"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/cast_view_profile"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cast_view_profile" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout >

@@ -1,3 +1,30 @@
 <resources>
     <string name="app_name">GiveMeAMovie</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home">Home</string>
+    <string name="explore">Explore</string>
+    <string name="favorite">Favorite</string>
+    <string name="detail_shape">detail_shape</string>
+    <string name="similar">SIMILAR</string>
+    <string name="cast">CAST</string>
+    <string name="overview">OVERVIEW</string>
+    <string name="space1">|</string>
+    <string name="watch_trailer">Watch Trailer</string>
+    <string name="add_to_watchlist">Watchlist</string>
+    <string name="like">LIKE</string>
+    <string name="like_button">like_button</string>
+    <string name="search">Search…</string>
+    <string name="your_likes">Your Likes</string>
+    <string name="watchlist">Watchlist</string>
+    <string name="expand_button">expand_button</string>
+    <string name="delete_button">delete_button</string>
+    <string name="like_movie">Like movie</string>
+    <string name="skip_movie">Skip movie</string>
+    <string name="add_to_list">Add to List:</string>
+    <string name="close_adding_to_list">close adding to list</string>
+    <string name="add_new_watchlist">add new watchlist</string>
+    <string name="name_of_list">Name of list</string>
+    <string name="no_results_found">No results found</string>
+    <string name="back_button">back button</string>
 </resources>
